@@ -1,0 +1,1238 @@
+% Chapter 1
+
+\chapter{Introduction} % Main chapter title
+In this chapter, we introduce the topic of this thesis. First, we present the research motivation of our work and its related applications (section 1.1). Then, we describe the main research challenges related to human action recognition (HAR) (section 1.2), and we present our main research objectives (section 1.3). Finally, we finish this chapter with the thesis structure and outline (section 1.4).
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+
+\section{Research Motivation}
+\hspace{5mm} HAR is one of the most interesting research topics in computer vision and deep learning. Moving from 2D image to 3D spatial temporal image sequence makes the recognition greatly complex and challenging. It also provides a wide space for various attempts to solve many problems. The goal is to automatically detect the type of action performed in the scene. To achieve this, a video is segmented to contain one execution of action.\\
+
+The execution of HAR became possible with the rise of more powerful hardware and software. Therefore, new types of human actions recognition are now being enabled depending on the category of an activity under consideration. Generally, They are divided into four categories, i.e, gestures, actions, interactions and group activities. The division made is mainly based on the action complexity and its duration [2]. 
+\begin{figure}[th]
+\centering
+\includegraphics{Figures/mh}
+\decoRule
+\caption[Types of Human Action Recognition "HAR"]{Types of Human Action Recognition (HAR).}
+\label{fig:la}
+\end{figure}\\
+
+\textbf{Gestures:} They are the single body parts movement, which carry some meaning and usually performing a gesture takes short amount of time and it is less complex among the mentioned categories. Hand shaking and facial expressions are good examples of gestures.\\
+
+\textbf{Actions:} They represent combinations of multiple gestures that happen in a short period of time and performed by a single person. Some examples of actions are walking, jogging, running.\\
+
+\textbf{Interactions:} They are the action performed by two actors in the scenes. The Interaction could be between human and human or human and object. For example, a person is riding a bike, is an example of human-object interaction, while two people are fighting is an example of human-human interaction.\\
+
+\textbf{Group activities:} It is formed jointly by groups of people or object or both. It involves combination of gestures, actions and interactions. People are walking in a shopping center is a good example of group interactions that present number of people doing the same actions.\\
+
+As the title suggest, this thesis consider gestures and actions for solving the recognition problem. Therefore, the recognition of interactions and group activities are not covered under the thesis scope.\\
+
+In recent years, HAR has drawn much attention of researchers and scientists worldwide due to its important application in the real world scenarios. This is a great motivation factor for this thesis. There are various applications for HAR including, but not limited to the following:\\
+\begin{itemize}
+\item \textbf{Human Behavioral Understanding} - This technique is  using statistical models, to analyze the detected pattern in everyday's scenario. For example, self-driving car track driving behaviors and their reaction in different scenario to understand how human naturally behave.
+\item \textbf{Video Indexing and Retrieval}- An application that help in automate content retrieval from News and Sport, where videos archives are categorized based on their context. An example of this application, is navigating through contents and rewind the next goal in a soccer match.
+\item \textbf{Human Computer Interaction (HCI)} - As technology is moving toward IOT (Internet of Things) and Robotics Automation System (RAS). Activity recognition is being used for controlling home entertainment systems by understanding the human gesture. An example of such a type of interface used for controlling the presentation slides using hand movement [3].
+\item \textbf{Human-Robot Interaction (HRI)} - An application that give the robot to ability to recognize human activities is useful for the industrial setup and the domestic environment. For example, a humanoid robot in a domestic environment can recognize human a set of image sequence [4]. 
+\item \textbf{Smart Video Surveillance} - Unlike the conventional security surveillance which require laborious human monitoring for content analysis. A smart video surveillance systems aim to automatically track the person or the crowd and recognize the executed action. For example, detecting suspicious activities and create an automatic alert for immediate reporting to the authority [5]. This application will reduce the workload of the security person, and prevent dangerous situation.
+\item \textbf{Ambient assisted living (AAL)} - This type of application is used in health care and hospital to understand patient activities and behaviours. Such application can facilitate health treatment, diagnosis, and general patient health care. This system is also used to monitor the daily life of elderly people by capturing their continuous movements.
+\item \textbf{Autonomous driving system} - This HAR techniques act as personnel assistant that are used in recognizing the secondary tasks performed by the driver, such as, answering the phone, while operating the vehicle which can prevent a serious accident.  
+\end{itemize}
+
+\section{Research Challenges}
+\hspace{5mm} Action recognition can be applied at different types of abstraction. Over the last three decades, many approaches were proposed to define these levels of abstraction. The main target in this Thesis is to address the issue of automatic HAR via supervised learning, which mean that there are enough data annotation and labeling for every video and actions. The model is then trained to recognize these actions for unseen videos. The model can be trained on different types of video, such as surveillance videos data or movies data, etc.
+\begin{figure}[ht]
+\centering
+\includegraphics{Chapters/ti}
+\decoRule
+\caption[Some actions classes in an indoor environment "6"]{Some actions classes in an indoor environment [6].}
+\label{fig:la}
+\end{figure}
+Due to the complexity and large amount of data in humans’ activity, HAR still a challenging task. For example, some of the major challenges are:
+\begin{itemize}
+\item \textbf{Intra-class and Inter-class variation} - people see and understand actions in many different ways. Also, people move and perform actions in many different ways. For a given action such as “Jogging” and “Running”, the similarity between these two actions is high enough to create confusion for the system. As a result, a model of HAR should be general enough to handle all possible cases of a specific activity as well as discriminative enough to be able to differentiate between types of activities.
+\item \textbf{Video Artifacts} - when building a model, the first step is always by preprocessing the data. Depending on the data size, preprocessing requires compressing the data, to process each video frame. As a result, when the video is compressed, noise and artifacts start to appear in the video. However, after many research attempts and judging from old and new results, video artifacts do not always present threat to the model accuracy, specially the existing of many low-resolution methods that works on smoothing the area of the actions with spatial-temporal features. On the other side, noisy video presents an issue for many systems such as indoor/outdoor monitoring, day/night monitoring, which is already low in specific time.
+\item \textbf{Dynamic and Cluttered Background} - the practical example of HAR is present it in an outdoor area, where humans are usually not alone the scenes. For example, a scene from an outdoor camera surveillance system or a hospital monitoring system, show humans surrounded by objects and other humans in a dynamic environment, which make the system accuracy and consistency hard to distinguish and localize action for a specific person in a scene.
+\item \textbf{Lighting and Hardware Resolution} - this issue exist in outdoor and indoor camera surveillance system, where lighting and distortion create a major problem in the scene. For example, a scene in an indoor environment is always accurate than the outdoor one, due to illumination properties.
+\item \textbf{Camera Motion} - in a real-world scenario, a camera mounted to a static pole, suffer from vibration in a windy environment. Another example, exists when recording is done by human hand like “GoPro” and “Phone Camera”, due to zooming or shaking. Even though, some advanced technique tries to stabilize the vibration and clean the data before processing, these algorithms cannot be 100\% accurate, and can affect the HAR [7].
+\item \textbf{Variation of Viewpoint} - monitoring large area like “Schools”, “Public Park” etc. Requires multiple cameras around the same environment for better monitoring. However, this will visualize the area from different viewpoint and may cause confusion to the model, which make the system not able to understand the interaction between the human the environment and objects.
+\end{itemize}
+
+\section{Research Objective and Scope}
+\hspace{5mm} The main objective of this thesis is to improve the performance of video based HAR by proposing a model using handcrafted and deep learning based techniques. This section enlists details objectives of this thesis as follows:
+\begin{itemize}
+    \item Our first objective is to comprehensively review of novel techniques based on deep learning approaches, in order to decide which video representation method works the best;
+    \item Our second objective is to understand the existing limitations of this application and to propose a method that go beyond the state of the art limitations.
+    \item Our third objective is to develop a method for spatial temporal feature extraction to make the system understand the visual content in each video frame;
+    \item Our fourth objective is to make a comparison between the benchmark and experiment results on the same dataset;
+\end{itemize}
+
+\section{Thesis Structure}
+\hspace{5mm} This Thesis consists of 7 chapters including the current introductory chapter. They are being organized as following:\\
+\begin{itemize}
+\item \textbf{Chapter 2} introduces various methods, different features extraction, representation, and classification techniques used by researchers. Also, a review on some of the popular datasets, including the one used for this thesis. A detail review on convolutional neural network for spatial temporal features is also addressed, which is the main focus of this thesis, and justification for the selection is also presented. Finally, contains the research questions to be investigated in the thesis.
+\item \textbf{Chapter 3} present a detailed explanation of the proposed model used for this thesis. The methodology includes the software used, the dataset source following with the main implementation.
+\item \textbf{Chapter 4} presents preliminary results of the proposed model. We present the evaluation metrics used followed by visualization of results .
+\item \textbf{Chapter 5} provides the followed steps to perform all the calculation needed, followed by addressing future plan. 
+\item \textbf{Chapter 6} provides detailed schedule with all research activities. The time-line is highly realistic which allows for some degree of flexibility.
+\item \textbf{Chapter 7} provides all the references such as, academic journals, publications, PhD dissertation, master dissertation and bachelor thesis.
+\end{itemize}
+
+\chapter{Literature Review}
+
+
+\section{Introduction}
+\hspace{5mm} This chapter provides a comprehensive literature review of HAR from video sequences. First of all, the research area of HAR is discussed on a high level, including an overview of neural network types and structure with their conventional training and testing method. Then an in-depth review of the current literature which provide a discussion about state-of-the-art method with respect to their strengths and weaknesses. Toward the end of the literature review, we gave a detailed review on some of the new approaches used that made HAR more accessible and successful.
+
+\section{Overview of Neural Networks}
+\hspace{5mm} Neural network is a specific kind of deep learning. To understand neural network well, this section provides a detailed explanation of the most popular neural networks that are applied throughout the rest of the thesis. We begin with a brief explanation of multi-layers neural network, convolutional neural network, recurrent neural network, and the popular generative adversarial networks including their type of learning and architecture and provide a visualzation of their networks. Then we explain their training and testing methods.
+\subsection{Multi-layers Neural Networks}
+\hspace{5mm} Neural networks are a generic term in deep Learning [8] that operate on the basis of the structure and have similar functionality to the human brain. The human brain naturally contains interconnected neurons that transmit signals and data constantly, an artificial neural network has their own interconnected artificial neurons that transmit data between neurons, and same as the human brain operate. The typical neural network consists of 3 layers - input layer, hidden layer and output layer. Technically, inputs data can be any type such as Image, Text, Audio, Video, etc. Hidden layers transform the inputs and perform calculations depending on the system architecture and extract features upon it. The output layer produces the desired output. Each node in the network have a random weight and each layer have an additional bias neuron attached to it to allow shifting the activation function to the left or right which may be critical for a successful learning. Then certain activation functions (Tanh, RELU, Sigmoid, SoftMax etc.) are initialized in the model to make each layer decide which neuron to fire.\\
+Neural networks take image as input. The networks flatten them into a 1-D array and this array is given as input to the next neuron. The issue is the spatial features of the pixels and their position in their 2D form is not considered. To illustrate that, suppose there is an image with 256 x 256 pixels, the input is consisting of 65,536nodes, one node for each pixel in the 2D image. The primary disadvantage of this model is that the input vector will be extremely large when dealing with large scale datasets, which make the weight matrix large and make the model computationally expensive. At the end, the network would not be able to give any accuracy. The image below visualize the conventional neural network architecture 
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/ca}
+\decoRule
+\caption[A visualization of the conventional neural networks architecture "8"]{A visualization of the conventional neural networks architecture [8].}
+\label{fig:la}
+\end{figure}
+\subsection{Convolutional Neural Networks}
+\hspace{5mm} Convolutional neural networks are a type of a feed-forward network and they are very similar to the ordinary neural networks but their architecture is designed to process visual features which make the calculation simpler and more optimized. Convolution is the core operation for every CNN operation. The traditional CNN is consisting of 3 layers, for example, Convolution layer, RELU layer, pooling layer and Fully Connected layer. A CNN take as input to the network an arrays of pixel values [9].\\
+
+A convolutional network is dividing images into regions, and then each region is assigned to different hidden nodes. Each hidden neuron in the hidden layer retrieve pattern in only one of the regions in the input image. Each region is called a Kernel or filter. Every filter is convolved over both x-axis and y-axis. Then multiple filter is used to extract different features from the image. A feature map is formed when the output of one filter convolve throughout the entire image generating a 2D layer of neurons. In this case, each filter is responsible of building one feature map.\\
+
+Stacking feature maps can form a 3D array, which can be used as input for the next layer. This is performed by the Convolutional layer. It uses a filter matrix over an array of image pixels and perform the convolution operation to form a convolved feature map. The next layer is the RELU layer, which apply a non-saturating activation function f(x) = max(0,x)and represent the non-linearity to the networks. RELU layer will set all negative pixels to zero and apply an element wise operation. The original image is being scanned by a sliding window in multiple Convolution and RELU layers for locating hidden patterns and features in the image. The output is then a Rectified Feature Map. Other types of activation functions are used in CNN to increase the nonlinearity of the overall architecture. However, RELU is used commonly in CNN models because it led to a faster training without significant loss of accuracy. These layers are followed by a Pooling layer that work on reducing the spatial dimensions of the feature map, generated from the previous convolutional layers. Then the output will be a Pooled feature map. Similarly, to the convolutional layer, pooling layer will scan the image in both the axes and the max value is taken from that filter. The advantage of pooling layer is with reducing the size of the input and the number of parameters and the computational time, which eliminate the problem of overfitting. Finally, the pooling feature map is converted to a long continuous linear vector, which perform the Flatten operation. This flattened matrix generated goes to a fully connected layer to perform a final classification. Fully connected layer is the last layer of the whole architecture, just same as all the other networks.\\
+
+This section covered the implementation of the Convolutional network in case of a 2D images, when a 2D convolutional layers and pooling layers are used. However, for a video setting the implementation become complicated, due to an additional temporal axis. In this case a 3D convolutional layer is used, where the filter of 3 channels is convolved across all the three axes.\\
+
+The main procedure that will be followed to model a CNN is by dividing the entire datasets into 3 parts - training, validation and test set. The model will be trained using the first set of data (training set) repeatedly for a specific number of epochs, also known as iteration. After each epoch during training, the model is tested on the validation set. Then the model that perform with maximum accuracy and less root mean square error on the validation set will be loaded and saved as model weight. Finally, the model performance is then evaluated using the test set.
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/cnn}
+\decoRule
+\caption[A visualization of the convolutional neural networks regular architecture “10”]{A visualization of the convolutional neural networks regular architecture [10].}
+\label{fig:la}
+\end{figure}
+\newpage
+\subsection{Recurrent Neural Networks}
+\hspace{5mm} Recurrent neural networks are a type of network that recognizes patterns from sequence data such as, text, spoken word or time series data [11].\\
+
+RNN is a special network that have a memory to capture information. Theoretically, due to its ability to operate over sequences of vectors, RNN can make use of this information in a long arbitary sequences.\\
+
+RNN is an exciting types of neural network, 
+Some examples of the important three design pattern for recurrent networks are below:
+\begin{itemize}
+    \item Recurrent network linked to the output at every time step, and have recurrent connections between hidden units.
+    \item Recurrent network linked to the output at every time step, and have recurrent connections only from the output at one time step to the hidden unit.
+    \item Recurrent networks connected with recurrent nodes to the hidden layers, which scan the entire sequence and produce a single output.
+\end{itemize} 
+However, RNN implementation is not limited to these types, blow are a visualization of the standard RNN architectures used not only on audio, and text data but also on images and videos data:
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/rnn}
+\decoRule
+\caption[A visualization of the recurrent neural networks architectures types"11".]{A visualization of the recurrent neural networks architecture types [11].}
+\label{fig:la}
+\end{figure}
+Each rectangle is a vector and the arrows represent a function such as matrix multiplication, etc. The red arrow is the input  vectors, blue and green arrow hold the RNN state. Model \textbf{(1)} represent a one to one RNN, which process the data from fixed size input to fixed size output and it is used for image classification. Model \textbf{(2)} represent one to many architecture which produce a sequence outputs and its used for image captioning which takes an image and outputs a sequence of words. Model \textbf{(3)} represent many to one which produce a sequence input and it is used for sentiment analysis where the input sentence is classified as positive or negative. Model \textbf{(4)} represents many to many architecture which produce sequence of input and sequence output  and it is used in machine translation, where the RNN take input a sentence in french and output its sentence in english. Model \textbf{(5)} represents another many to many architecture but it synced the input and output sequence, this model is used for video classification where the output is the video label for each frame.\\
+
+\hspace{5mm} Li \textit{et al.} [12] present an adaptive learning framework for skeleton based HAR using RNN-Tree (RNN-T). Their RNN-T model the representation of the human skeleton and recognize them through a hierarchical inference process. The authors address tow main challenges of their large scale recognition model, firstly the ability to classify finer grained actions classes based on confidence rate using single network, secondly, making the model adaptive to new actions and using it in the existing model. The authors prove that their model improve against state of the art methods on many public benchmark.
+
+\subsection{Generative Adversarial Networks}
+\hspace{5mm} Generative adversarial networks (GAN) introduced by Goodfellow \textit{et al.} [13] are generative model approach based on differentiable generator model. GAN based on a game competition scenario, where the generator network must compete against an adversary and then produce samples directly $x = g(z;\Theta ^{(g)})$. The network adversary or the discriminator network attempts to differentiate between samples drawn from the training and the generator samples. A probability value is then emitted by the discriminator given by $d(x;\Theta ^{^{(g)}})$ as an indicator that the real example from the training example is $x$ rather than a fake sample generated by the model.\\
+
+To describe the learning in the generative adversarial networks is as a zero-sum game, where a function $v(\Theta ^{(g)},\Theta ^{(d)})$ determines the reward of the discriminator. Next the generator receives $-v(\Theta ^{(g)},\Theta ^{(d)})$ as its own reward. As the model learning, each networks try to maximize its own reward following the convergence equation below:
+\[g^{*} = arg\,min{_G}\,\: max{_D}\: v(g,d)\]
+The objective function of the generator and discriminator is:
+\[min{_G}\,\: max{_D}\: v(g,d) = E{_x\sim {_p{_d}{_a}{_t}{_a}(x)}}[logD(x)] + E{_z\sim {_p}{_z}(z)}[{log(1 - D(G(z)))}]\]
+\hspace{5mm} The discriminator is then learning to differentiate between the real and fake data. Simultaneously, the generator try to fool the other network into believing that the samples are real. Since an adversarial learning method is applied, the process doesn't require approximating intractable density functions.\\
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/gan}
+\decoRule
+\caption[An visualization for generator and discriminator in GAN networks "14".]{An visualization for generator and discriminator in GAN networks[14].}
+\label{fig:la}
+\end{figure}
+One of the popular example of using GAN is in Auto-encoders and Variational auto-encoders (VAE). Auto-encoders usually encode the input data as set of vectors, and create a compressed representation of the original data. Auto-encoders are used for dimensionality reduction and also paired with a decoder that reconstruct the data based on its hidden layer. An early example of auto-encoders was in Restricted boltzmann machines (RBM) invented by Smolensky [17]. On the other hand, variational auto-encoders are also a generative algorithm that make normalise the hidden layer. VAEs are able to compress acting as an autoencoder and synthesizing data like GAN. However, GAN generate more realistic data with granular details, and the image generated by VAEs are more noisy and blurred.\\
+\hspace{5mm} Below is a listed of the current applications of GAN:
+\begin{itemize}
+    \item Pose Guided person generation[18].
+    \item CycleGAN[19].
+    \item Re-CycleGAN[20].
+    \item PixelDTGAN[21].
+    \item Super resolution image resolution[22].
+    \item Progressive GAN[23].
+    \item StackGAN[24].
+\end{itemize}
+\hspace{5mm} Kiasari \textit{et al.}[25], proposed an extension on GAN for generating human actions using autoencoders. The authors introduced a model for human action generation in order to generate a sequence of human actions to produce a novel actions. They evaluate their model on the benchmark NTU RGB+D dataset, consisting of 56,880 samples of RGB videos, depth map sequences, 3D skeleton data, and infrared videos for each sample. Their method was able to generate actions with seamless transition with given different labels.
+\subsection{Training Neural Networks}
+\hspace{5mm} The purpose of neural networks is to learn from data. Tom M. Mitchell [26] provides a detailed definition of computer learning:
+\begin{displayquote}
+"A computer program is said to learn from experience E with respect of some class tasks T and performance measure P, if its performance at tasks in T, as measure by P, improves with experience E".
+\end{displayquote}
+\hspace{5mm} Different kinds of tasks T, experience E, performance measurements can be used to form and build a machine learning algorithm that can learn.\\
+In this case the NN is able to adjust its biases and weights neurons to minimize the training error and on the other hand to maximize the accuracy. Training algorithm are many such as[27]:
+\begin{itemize}
+    \item Stochastic Gradient Descent.
+    \item Back-propagation.
+    \item Sparse Training.
+    \item Conjugate Gradient.
+    \item Adaptive back-propagation.
+    \item Genetic algorithm.
+    \item Simulated annealing algorithm.
+\end{itemize}
+\hspace{5mm} Neural networks starts with randomly initializing its weight. During training, the correct class for each reading is known, and the output neurons can be assigned as 1 for the correct value and 0 for the others. Comparing the values calculated from the output nodes through calculating the error in each of the nodes in the network using  the delta rule. The error term is then used to adjust the weight in the hidden layer, which will eventually give better results in the next run.\\
+
+In this thesis gradient descent algorithm is used as traing algorithm. Gradient descent or the delta rule can be written mathematically as the following:
+\[\bigtriangledown L \approx \partial \frac{L}{\partial x_{i}}\bigtriangledown x_{i}\]\\
+
+The gradient descent is then being controlled by the learning rate. The rule of updating the weight after each iteration is the following:
+\[W_{j} = W_{j} - lr\partial \frac{L}{\partial W_{j}}\]\\
+
+Where lr is the learning rate and the w is the weight.
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/lr1}
+\decoRule
+\caption[Visualization of the gradient descent algorithm during training in a 2D space "41"]{Visualization of the gradient descent algorithm during training in a 2D space [41].}
+\label{fig:la1}
+\end{figure}
+
+\subsection{Testing and fine tuning}
+\hspace{5mm} Testing neural networks is a critical final phase of modelling the network. Unlike Training the model, in testing the adjustment of weights and biases values is not required. Testing technique can vary, and one of the interpretation are as the following:
+\begin{itemize}
+    \item Check up the evaluation matrix weights across epoch.
+    \item Removing some of the layers, to observe the variation in the learning process.
+    \item Performing Gradient checking. It starts with the activation function derivative, and the total derivative of the cost function to check that there is no error.
+    \item Checking the mathematical operation used, especially matrix operation such as the element wise multiplication and the dot product.
+    \item create a trivial learning tasks, by letting a single layer to learn the sum of the inputs for the fully connected layer. 
+    \item 
+\end{itemize}
+\hspace{5mm} The second interpretation is by testing the results of the neural network from the hyper-parameters side:
+\begin{itemize}
+    \item Plotting some metrics such as F1-score, cost, accuracy, amongst train, validation and test set against number of epoch and batch.
+    \item Checking gradient vanishing or gradient exploding do not exist in the model. This can be resolved by using different activation function or different learning rate.
+\end{itemize}
+\hspace{5mm} In this thesis, we consider testing our neural network an essential part of validating our network performance and quality. As a results, a set of validation metrics are introduced in chapter 4. 
+\section{Holistic Model}
+\hspace{5mm} In this section, a comprehensive discussion is covered about features extraction from image sequences. For a robust model, action representation should be rich. These representations are affected by small variations in person appearance, action execution, viewpoint and background. Image representations consider temporal dimension alongside spatial features.\\
+\hspace{5mm} Image representations are divided into two main categories:\\
+\begin{enumerate}
+\item Global Representations.
+\item Local Representations.
+\end{enumerate}
+
+\subsection{Global Representations}
+\hspace{5mm} Global representations encode the region of interest (ROI), through background subtraction and tracking. These representations are commonly derived from optical flow, edges and silhouettes. They are also sensitive to variations in viewpoint, partial occlusions and artifacts. To overcome these, a grid-based approaches divide the representations into cells, which encodes part of the observation locally. Overtime, multiple images are stacked to form a three-dimension space-time volume, which create the suitable volume for action recognition.\\ 
+
+The earliest example of silhouettes extraction was introduced by Bobick and Davis [41], which results in a 2D binary MEI as an indication of motion occurrences, by extracting silhouettes from a single view. From the same silhouettes motion, an MHI is raised where pixels are intense due to constant motion overtime. The main purpose of using MHI and MEI, is to overwrite scenario where motion is repeated over the same spatial space. This model is able to detect simple gesture, such as hand waving, hand clapping.   
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/hg}
+\decoRule
+\caption[Visualization of motion energy image (MEI), and motion history image (MHI) "42"]{Visualization of motion energy image (MEI), and motion history image (MHI) [42].}
+\label{fig:la1}
+\end{figure}
+MHI suffer from overlapping, a new approach from [43] was proposed. In this method, vertical and horizontal components each with negative and positive directions as four optical flow channels. The purpose is to avoid self-occlusion of the person. These vectors were used in derive kinematics features, such as, symmetry and divergence. A principle components analysis (PCA) is then used to show the main kinematics modes. Due to one disadvantage of silhouette models which present in extracting a robust and accurate silhouette. A new approach was proposed to develop a more practical application for silhouette model by applying Radon transform by [43] where the third dimension is time. R transform has low computational cost and high efficiency in recognizing similar action even silhouette with holes and frame loss data. 
+
+
+\subsection{Local Representations}
+\hspace{5mm} Local representations extract features as a collection of patches and local descriptors. Patches are space-time interest points. The differences between the previous representations, is that local representation is not limited to background subtraction and accurate localization. The observation is grouped within a local grid, and finding the correlation between space and time patches. Since the patches are retrained, the action can be modelled effectively.\\
+
+A number of approaches proposed to use representation motivated by HAR. Joint angle and locations considered a rich representation, as it annotated the whole-body key point with specific coordinate system. The advantage of this method is that actions can be analyzed in a more descriptive way. However, it is challenging to derive them from videos. In 2D, there have been number of methods to match 2D joint trajectories with the right action labels. Whereas for 3D, the representations are view-invariant and a reliable low-level joint estimation is required. This is not a issue on a small data with simple human activity, but it is a major problem on large scale data. In a practical real-world application, it is difficult task to develop due to the computational complexity.
+
+
+\section{Human-Object interaction model}
+\hspace{5mm} In the case of human interaction, the interaction can be between humans (Human-Human recognition), or between objects and humans. For example, to recognize a human-object interaction, the system needs to recognize and localize the object surrounded by the user, and be aware or its movements [44], same approach apply on human-human interaction. This type of system follows the methodology below:\\
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/ht1}
+\decoRule
+\caption[Flowchart for an object human activity recognition (HAR) "44"]{Flowchart for an object human activity recognition (HAR) [44]).}
+\label{fig:la}
+\end{figure}
+Ryoo and Aggarwal [45], present a model that can recognize human interactions with objects. As a result, HIR in an airport environment worked on scenario like “A person is stealing baggage”, “A person left baggage on the floor”, by using a complex probabilistic framework that integrate the recognition decision between each existing component. Finally, the object recognition and the motion estimation increases using feedback from the segmented layer. Gupta et al. [46], present a classification approach for understanding human interactions with objects. To classify these activities a Bayesian network is implemented with HAR to discriminate two objects that have same shape but different functionality, such as “Water Bottle” and “Spray Bottle”, using contextual information. These contextual information’s are providing the functional information’s for each object to make the recognition more accurate. In [47], the author developed a framework where the object is recognized first and then the interaction between them is estimated and a HMM is combined with context information to characterize the relationship between actions and objects. Bayesian network is used to label and to classify actions classes, and differentiate unrecognized actions. The approach worked well in different environment evolving one object with one human.
+
+\section{Graph Based Models}
+\hspace{5mm} Graphs represent a mathematical structure utilized in scientific visualization to represent data relationships. They are made up nodes which are connected by synapses or edges. The graph edges might also have a value associated by a numerical attribute.  
+The basic Graph formula is:
+\[G = (V, E)\]
+Where:
+\begin{itemize}
+\item The element V is the Vertices of G.
+\item The element E is the Edges of G.  
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/grr}
+\decoRule
+\caption[A drawing of an undirected graph with 4 vertices and 4 edges.]{A drawing of an undirected graph with 4 vertices and 4 edges.}
+\label{fig:la}
+\end{figure}
+Graph-based methods are considered a powerful tool for computer vision mainly in image processing and object matching. In early works, Graph based method was not used for modelling human actions, due to its complexity. But recently, this method has been proposed by many researchers. \\
+
+Ta et al. [48] develop a graph matching algorithm on KTH and Weizmann datasets with state-of-the-art results. The objective of this approach is to calculate the similarity between two videos for instances of the graph model, rather than classifying the whole sequence to recognize the activity. The advantage of this method appeared in detecting multiple instances of activities occurring in the scene simultaneously without any reprocessing. \\
+
+Brendel and Todorovic [49], proposed a method for modelling spatial temporal graphs of human activities. The ST-graphs model the ST-relationships between activity parts. In another word, the nodes corresponding of video segments, and the edges model the ST-relationships. This method enabled a fast training from segmented videos into more than 2000 space-time cube at multiple scale. The results were evaluated from UT interactions, Olympic sports and Weizmann datasets. \\
+
+The disadvantage of graph-based representation is that the complexity of the graph dramatically increases when the number of nodes and edges grow. On the other hand, graphs cannot perform simple sums operations which make them useful for patterns classification and recognition.\\
+
+To solve these problems, Graph embedding offer an alternative implementation, which allow basic operations to perform on graphs. Graph embedding convert graphs into a vector-based representation. It then become useful for conventional pattern recognition and complex statistical models. In [50], a novel graph-based method model human’s spatial features when performing a specific action. A discriminative approach is modelled where the graph is embedded as a feature vector on a synthetic data from KTH dataset, and an attributed graph is built in each frame to represent the human’s shape. Then the HMM is used to classify the actions.
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/gr1}
+\decoRule
+\caption[An example of using Graph method for HAR "37"]{An example of using Graph method for HAR[37].}
+\label{fig:la}
+\end{figure}\hfill \\
+
+A related work on Embedding graph was developed using Spectral clustering technique in [37]. In this method, the author used the noisy track of an insect and construct the features using 3D object movements to discriminate between the action’s classes. Then perform the clustering algorithm K-mean to cluster the principle components of every odd eigenvectors of the affinity matrix.\\
+
+Graphs are a flexible tool to represent the spatial temporal features of an activity or even between parts of the human body. That’s because Graphs are able to extract complex patterns and efficiently connecting them to each other. 
+\section{Sequential Model}
+\hspace{5mm} In sequential models, video sequences are considered to recognize human actions from a given set of sequential features. In this case recognition is performed by analyze the sequence corresponding to that activity in the video. Sequential are divided to two categories, Example based and state-based approach. Example based approaches use the training sample as a sequence of templates to describe human action classes. As a result, recognition is accomplished if the sequence of action is retrieved from the video sequence. However, State based approaches model the action as sequence of state with the corresponding associated probabilities. In this example, states refer to a particular spatial feature or small gestures which form an action. Then the recognition is achieved by calculating the probability that the sequence is generated in a video.
+
+\subsection{Example Based Approaches}
+\hspace{5mm} Example based method represent human activities as a template of the action’s execution. For an unlabeled video, the spatial vectors extracted from the video are compared to the template, if similarities in the observation were high between the features vector and the template, then the unlabeled video is classified as part of this action execution template. All the sequential method considers the variation of human actions, as every person perform actions differently.\\ 
+
+Darel et al. [51] proposed a DTW (Dynamic time warping) for human gesture. DTW has been applied to temporal sequences of video, audio, and graphics data and it is a powerful algorithm for measuring two temporal sequences which might vary in speed. The author developed a real time system that recognize complex objects and human gestures by using a view-based representation which model the portion of the object used by the user in the recognized gestures. This was achieved by modelling the correlation scoring between the image frames and the template images as a function of time. Then the scores from the training videos are used to form the template. In this case, DTW was used to match the unseen video with the template which consider the variation in every action for each person.\\
+
+Another example of using DTW was in [39] by Gavrilla and Davis. The authors aim to model the skeleton of the human body in each frame and tracking it by measuring its variation over time. This method used DTW algorithm to recognize human gestures like hand waving and hand clapping using the 3D body parts tracking.\\
+
+Yacoob et al. used SVD method to decompose actions signals into a set of eigenvectors to form the action template or basis. This method recognizes actions by calculating the similarities between the input and the template from the coefficient of the activity template. A successful example for this method was recognizing “Walking” action.
+
+
+\subsection{State Based Approaches}
+\hspace{5mm} State based method model human’s activities as a sequence of activity states. A similarity measurement between the model and the input video sequence is generated from a sequence of feature vectors. This probability is modelled by two classification method, maximum likelihood estimation (MLE), maximum posterior probability (MAP). But recent works show that HMM and Dynamic networks (DBN) are widely used in state-based models.\\
+
+Gao et al. [40] proposed a new method for HAR based on trajectory. They model activities using a discriminative latent variable from each action. Their model was based on Hidden conditional random fields (HCRF) as discriminative model, rather than generative. This method outperforms both HMM and CRF method on both real and synthetic data.
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/HCRF}
+\decoRule
+\caption[A diagram of HCFR architecture for trajectory recognition "27".]{A diagram of HCFR architecture for trajectory recognition [27].}
+\label{fig:la}
+\end{figure}\\
+
+Yamato et al. [28] present a method using HMMs. Their approach represents a single HMM for each activity which correspond to a particular sequence of feature vectors. HMM parameters are trained and used to recognize by measuring the similarity of the HMM and the input test video. This method, shows that HMM is applied to a set of time sequential images and transforming them into feature vector sequence, then these sequences are converted into symbols sequence by vector quantization. The system successfully recognized complex action such as playing tennis.\\
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/qw}
+\decoRule
+\caption[Visualization of HMM architecture from applying Mesh feature on the image to use Vector quantization to convert the sequence into symbols "28".]{Visualization of HMM architecture from applying Mesh feature on the image to use Vector quantization to convert the sequence into symbols [28].}
+\label{fig:la}
+\end{figure}
+
+An extension of the [28] was present by [29], using DBN to recognize two-person interactions. The recognition in this interaction is represented in terms of semantic verbal descriptions at different levels such as, individual body part at lower level and single person actions at middle level and two-person interactions at high level. DBN generate observations from multi hidden node at each frame. This experiment shows that the proposed model recognizes details interactions consisting of multiple body parts.\\
+
+Sequential approaches are generally useful at modelling complex sequence consisting of smaller actions to more complex activities or gestures. State based approaches incorporate into other decision-making systems by calculating the probability of an action occurring. However, the disadvantage of state-based model is the algorithm generalization. To illustrate that, if an action occurs in the scene, and one state of this actions was missing due to partial occlusion, then it is difficult to recognize the actions. On the other hand, the other problem that face the sequential model, is the large number of data needed to model an effective system. 
+
+\section{Syntactic Models}
+\hspace{5mm} Syntactical model represents the activity as symbols where each symbol is a small atomic gesture. According to previous works in this domain, Context fee grammars (CFG), and Stochastic context-fee grammars (SCFG) have been used for HAR. Features are referred to the small atomic actions. In this section, methods are built upon lower level approaches to provide a higher-level activity representation.\\
+
+In [30], Ivanov and Bobick modelled a HAR using SCFG approach. They divide the recognition to two section, where the lower level recognition is performed using probabilistic event detectors to proposed human detection at low level features. Then the output detectors give an input sequence for a stochastic context-fee grammar parsing mechanism. This method recognize activity of multiple, interacting objects.\\
+
+Moore and Essa [31], extend on [30], by focusing on multi-task activities. Each action is labelled depending on visual and domain-specific information. They presented every action event as unique symbol, enabling a sequence of interactions to be described as an ordered symbolic string. The SCFG is developed to provide the structure of a semantical meaningful behavior over time. The method shows that parsing improves over 40\% and reduce the error to 87\%. It successfully collaborative tasks like cards games.\\
+
+Syntactical methods are able to model a complicated activity from simple atomic gestures. However, this method is limited to number of gestures in an action, which make the model sensitive to any action’s variation over time. To illustrate that, if a sequence of a video doesn’t contain all the small gestures that can possibly happen, then the recognition is hard to perform. On the other hand, it is hard to form a model basis or production rule to cover all the possible events, as some videos contain an action that it is not part of the production rule. The main advantage of a Syntactical methods is their flexibility to be combined with simpler approach to model complex activities.
+
+\section{Anomalies detection Models}
+\hspace{5mm} A model for detecting anomalous behaviors is discussed in this section. In this model context are the main ingredient for such a system, as an anomaly may vary depending on the scene. The main difference in this model is that the majority of the models for HAR rely on offline learning and classification from set of labelled actions, but in anomalies HAR the abnormal activity is known, and the system must learn to differentiate this activity online. Another important difference is that abnormal activities appear with low probability with respect to the normal activity. \\
+
+Anomalies detection in HAR is a well-researched area, and recently wide variety of methods were proposed. The performance of these method tends to be low due to factors such as scene clutter, occlusions and unsteady flow in the scene, and in complex scene like crowd anomalies detection, the low-level method to feature representation are unreliable. \\
+Li et al. [52], proposed an approach that consider both appearance and dynamic using mixture dynamic texture models. Their method is implemented by model the discriminant saliency detector that produces spatial saliency scores, and a model of normal behavior from the training of the dataset that produce temporal saliency score. A dataset of densely crowded pedestrian walkways with non-staged, realistic anomalies is introduced and the model show state of the art results in anomalies detection. \\
+
+Thida et al. [33], proposed a spatial temporal Laplacian Eigen map method to extract crowd activities from the scene. Using K-means the motion patterns were clustered in the embedded space and a multivariate Gaussian mixture model (GMM) is used to represent the motion features. The pairwise graph is built considering the visual context of spatial and temporal domain of the local patches. In this method the local probabilistic model learns not only to detect abnormal events in local and global contexts but to localize the abnormal region accurately.
+\begin{figure}[ht]
+\centering
+\includegraphics{Chapters/add}
+\decoRule
+\caption[An illustration of the anomaly detection method for crowd activities "33".]{An illustration of the anomaly detection method for crowd activities [33].}
+\label{fig:la}
+\end{figure}
+\newpage
+Kratz and Nishino [34], present a novel statistical framework for modeling the spatial temporal motion in an extremely crowded environment by modeling the rich motion patterns in local areas of the scene. They used GMM in their method as a 3D distribution. The temporal relationship is captured by a distributed based HMM between local spatial temporal motion pattern, and the spatial relationship is captured by a coupled HMM. The proposed framework was able to detect unusual motion patterns in pedestrian activity such as normal traffic flow and traffic congestion.\\
+
+\section{Research Questions}
+\hspace{5mm} Based on literature review, several questions about the current research in HAR are raised to address the research gap. These questions will form the basis of this research. These questions include:\\
+\begin{description}
+    \item \textbf{Robust live detection system}\hfill \\
+    Is this research study will succeed in addressing the challenges in improving live detection by reducing the computation cost and improving the accuracy?
+   
+    \item \textbf{Detecting human activity from sensors and visual data}\hfill \\
+    Is the proposed method more scalable to adapt a model that run on time series sensor data, as well as video camera data? 
+
+    \item \textbf{Normalization and Anomalies}\hfill \\
+    Is adding an anomalies and applied data normalization will remove system confusion in recognizing action in a noisy environment?
+    
+    \item \textbf{Frequency domain using Statistical features}\hfill \\
+    Is the proposed model in the thesis able to do trial and error to find the features for particular action?
+    
+    \item \textbf{Multi camera feature fusion} \hfill \\
+    Will the network be flexible enough to be trained on multiple camera frame using a semantic technique that provide situational context?
+    
+    \item \textbf{Video frame segmentation}\hfill \\
+    Are finding the mean and convariance projection matrix of the actor and the background the best approach to segment the video frame of the action execution?
+    
+\end{description}
+
+\section{Summary}
+\hspace{5mm} State of the art method for HAR such as graph based model and dense trajectories provide promising results on complex datasets. Even though, the previous methods are accurate, the recognition is still treated as an offline classifier problem. Detecting, localizing and recognizing complex human actions in a real-world scenario or in unstructured scenes with a variety of background noises are the future challenges to develop.\\
+
+This chapter has provided an in depth, comprehensive critical literature review from the human action recognition problem. Firstly, an overview about current DNN model are introduced and explain. Secondly, the general problems facing human activity were introduced and the main challenges were discussed. Thirdly, the benefits of HAR was addressed, with a list of potential applications. Finally, this chapter concluded by questions 6 questions to address research gaps.
+
+
+\chapter{Research Methodology}
+\section{Introduction}
+\hspace{5mm} This chapter is organised as follows: The first part will focus on the software and the operation system used to program the algorithm and process the steps involved. Next, the popular human action dataset is introduced and used to as backbone for the thesis. Finally the proposed method is presented with a step by step explanation.
+\section{Software Stack}
+\hspace{5mm} The following section, give a brief explanation on the programming language and frameworks used that were used to extract frames from the videos data and build the neural networks.
+\subsection{Operation System}
+\hspace{5mm} The goal of choosing the technology stack to build such application, was to develop a piece of software that run on any OS version. Therefore, the method was implemented on UBUNTU 14.04 LTS (Trusty Tahr) for system reliability and code reproducibility. The code can also be scalable due to the stable working environment UBUNTU offer in its systems.
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/u}
+\decoRule
+\caption[UBUNTU software logo "53".]{UBUNTU software logo [53].}
+\label{fig:la}
+\end{figure}
+
+\subsection{Programming Language}
+\hspace{5mm} The code is implemented in the interpreted high-level programming language Python. The reason for choosing this programming language is its features in dynamic type system and automatic memory management with support of multiple programming paradigms, such as object-oriented programming (OOP), imperative, functional and procedural and the support of large comprehensive standard library.
+Python 3.6.2 version was used.
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/python}
+\decoRule
+\caption[Python software logo "54"]{Python software logo [54].}
+\label{fig:la}
+\end{figure}
+
+\subsection{Anaconda Distribution}
+\hspace{5mm} Anaconda is an optimized graphical user interface (GUI) that allow the user to launch applications and manage working environment without using command-line commands. It also helps in searching for packages using their cloud data or the local anaconda repository. Anaconda 4.4.0 bit 64 is used to manage all the packages versions and deployments. In another case, Anaconda is used to run pre-built scripts, by simply initializing the working directory and typing the script name, which eliminate using any IDE.
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/anaconda}
+\decoRule
+\caption[Python software distribution Anaconda "55".]{Python software distribution Anaconda [55].}
+\label{fig:la}
+\end{figure}
+\subsection{Jupyter Lab}
+\hspace{5mm} Jupyter lab is an extension of the project Jupyter notebook that offer an extensible environment for reproducible and interactive computing. The project takes advantage of using Jupyter lab notebook, terminal, text editor and file browser, offering an end-to-end tool with its own eco-system.\\
+
+For documentation purposes and implementation, Jupyter Lab was used as the main GUI for providing rich comment on the code and updating the cell for optimization and debugging. Jupyter Lab is also used to train the model and visualize the neural network architecture.
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/jupyter_lab}
+\decoRule
+\caption[Jupyter Lab software logo "56".]{Jupyter Lab software logo [56].}
+\label{fig:la}
+\end{figure}
+
+Figure 3.5 shows Jupyter lab interface.\\
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/jl1}
+\decoRule
+\caption[Jupyter lab interface and its functionality.]{Jupyter lab interface and its functionality.}
+\label{fig:la}
+\end{figure}
+
+\section{KTH Dataset}
+\hspace{5mm} An overview of the dataset used is presented in following section.\\
+
+The KTH action datasets have been introduced by Shnuld et al. [54]. The video database contains 6 types of human actions. Actions are: Walking, Running, Jogging, Jumping, Hand waving and Hand clapping. They are performed several times by 25 subjects. Each subject performs actions in four different scenarios. Scenarios are outdoors (s1), outdoors with scale variation (s2), outdoors with different clothes (s3) and indoors (s4). All recorded videos are taken over homogeneous background and are down-sampled to 120x160 spatial resolution by the authors. The sequences are recorded using a static camera with 25 frames per second (fps) rate, and have a length of four second for each in average. According to authors, sequences are divided with respect to the subjects into training set of 8 persons, a validation set of 8 persons and a test set of 9 persons. All videos sequences are stored using AVI video file format. Overall, there are 600 videos for combination of 25 subjects, 6 actions and 4 scenarios. 
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/dt1}
+\decoRule
+\caption[visualization of KTH dataset. Columns represent different types of human actions, rows represent different scenarios, for each of the 6 actions categories "54"]{visualization of KTH dataset. Columns represent different types of human actions, rows represent different scenarios, for each of the 6 actions categories [54].}
+\label{fig:la}
+\end{figure}
+KTH dataset present major challenges, like low resolution, scale changes, illumination variations, shadows, different people, different scenarios, cloth variations, inter and intra action speed variations. The author proposed an evaluation method by splitting-based evaluation scheme and have one person out cross validation evaluation scheme.\\
+
+The spatial dimensions of the video are 160x120 (width x height). Using Numpy (Python library) loading a single video from the entire dataset will have the shape of the array:(1,515,120,160,3).\\
+This representation indicates that:
+\begin{itemize}
+\item There is 1 video.
+\item The video has 515 frames.
+\item The video spatial dimension is 120x160 pixels.
+\item There are 3 channels for each frame - Red (R), Green (G) and Blue (B).
+\end{itemize}
+To read the entire dataset, the same methodology will be followed.\\
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/wa1}
+\decoRule
+\caption[Matrix visualization of the action walking from KTH dataset.]{Matrix visualization of the action walking from KTH dataset.}
+\label{fig:la}
+\end{figure}\\
+
+From the above visualization, each activity involves the movement of the whole body. Some of the frames might be empty like in the image below, due to action variations over time which make some of the frames redundant and empty.
+
+\section{Implementation}
+\hspace{5mm} In this section we present a method to recognize human actions from an input video sequence. The aim of this method is to create a model that can detect basic human actions. The model is given a set of videos, where each video consists of an action performed by a human. The label of a video is the action being performed. The model is then training to differentiate between various human actions and understand this relationship, and then it should predict the label of an unseen video. The following gives an overall explanation of the method used to build a supervised classification model. Building a ML model consist of multiple parts:
+\begin{itemize}
+\item Clean Data.
+\item Execute the defined networks.
+\item Reshaped to fit into the model. 
+\item Make prediction.
+\end{itemize}
+
+The following diagram illustrate the steps for building this ML model.\\
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/m}
+\decoRule
+\caption[Visualization of the machine learning model used for this task.]{Visualization of the machine learning model used for this task.}
+\label{fig:la}
+\end{figure}
+\newpage
+As shown in figure 3.8, the implementation is consisting of different important steps. Each step has to satisfy the input of the next one in order to achieve the final results. It starts with importing all the dependencies and libraries. They are pre-built framework for complex mathematical calculation which is needed to perform the calculation correctly.\\
+
+\begin{figure}[]
+\centering
+\includegraphics{Figures/fn}
+\decoRule
+\caption[Flowchart of building the neural networks from start to end.]{Flowchart of building the neural networks from start to end.}
+\label{fig:la}
+\end{figure}
+\newpage
+The following steps is splitting the data to three main sections, training, validation and test set:
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/ds}
+\decoRule
+\caption[Python command lines responsible of splitting the data to train, validation and test.]{Python command lines responsible of splitting the data to train, validation and test.}
+\label{fig:la}
+\end{figure}
+First the data is divided to training and test set respectively to 66.67\% and 33.33\%. Then taking approximately 25\% of the training data for validation. At the end 598 videos are then divided to 300 videos for training set, 98 videos for validation set and 200 videos for the test set as shown below. 
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/datasplitoutput}
+\decoRule
+\caption[Splitting the data to three sets]{Splitting the data to three sets.}
+\label{fig:la}
+\end{figure}
+\newpage
+
+\subsection{Data Preprocessing}
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/dp}
+\decoRule
+\caption[A step-by-step flowchart for data preprocessing.]{A step-by-step flowchart for data preprocessing.}
+\label{fig:la}
+\end{figure}
+The essential step in every model, is data pre-processing. This was implemented in utils.pyfile. In this file there is a Python script that read in the video frame by frames. These videos were recorded at a frame rate of 25fps. In general, within a second the human does not perform a recognizable movement. This implies that most of the frames in the videos are redundant. Only a section of all the frames in a video are needed to extract. Following this procedure, the input data will help to model train faster and avoid over-fitting issues.\\
+
+In utils.py, different method was used to extract frames. The following are the strategies used:
+\begin{itemize}
+\item Extracting a fixed number of frames from the overall frames in the video. For example, the first 250 frames, or the first 10 seconds of the video.
+\item Extracting a fixed number of frames each second from the video. For example, extracting 10 frames per second from a video of 5 seconds. This will return a total of 50 frames from the whole video.
+\end{itemize}
+\hspace{5mm} The latter one, is used in extracting the frames from the video datasets, as this approach extract the frames sparsely and uniformly from the entire datasets.
+Each frame will have to be reshaped and resized to the required size. Hence each frame needs to have the same spatial dimension such as height and weight. On the other hand, to reduce the model complexity and guarantee better performance and recognition, the frames are converted to grayscale.\\
+
+One of the important parts in data preprocessing is Normalization, where the standard pixel value is from 0 to 255. For a grayscale images, the value of the pixel is a single number that represent the brightness rate of the pixel. The most common used pixel format is byte image, where the pixel number is stored as an 8-bit integer giving an image the standard 0 to 255 values. Typically, zero is taken to be very black, and 255 taken to be very white. However, these values are too complicated for the model, and normalizing them will help the model the converge faster and have better performance. To achieve such a performance, different normalization approach can be applied, such as:
+\begin{itemize}
+\item \textbf{Z-score Normalization}- Which determine the Standard deviation value from the mean value of the data.
+\item \textbf{Min-Max Normalization}- Which make the value of the pixel to be from 0 to 1, instead of 0 to 255.
+\end{itemize}
+\hspace{5mm} The implementation of utils,py will produce a 5-dimensional tensor shape of:
+(<number  of videos>,<number of frames>,<width>,<height>,<channels>)
+Where channels can have 1 for grayscale format and 3 for an RGB format, and the number of frames are the same for the whole dataset videos.
+To convert the categorical variables into a form that could be provided to the proposed ML algorithm, a one hot encoding is used. One hot encoding will help the algorithms to do a better prediction on the data and will convert the categorical data to numerical data which consist of two steps:
+\begin{itemize}
+\item \textbf{Integer Encoding}- It is the first step of the converting methodology, where each unique category is assigned to an integer value. To illustrate that based on the data used, “walking” is 1, “running” is 2, and “jumping” is 3. This is a label encoding or integer encoding technique which work in reverse way. The integer value has a natural ordered relationship between each other, and ML algorithms have the ability to understand and harness the relationship between them.  For some variables, this technique might be enough.
+\item \textbf{One-Hot Encoding}- In some case, categorical variables without any relationship exists, the integer encoding is not enough, and sometimes not scalable on dataset with large categories. To make the model assume a natural ordering between categories may have a bad impact on the data, and May results in poor performance and unexpected results. For example, predicting half of the categories and fail in build a relationship between the other categories. For KTH datasets, a one-hot encoding is applied to the integer representation. The integer encoded variable is removed and a new binary variable is added for each unique integer value. The method is also called Binarization. In the given data sets, there are 6 categories and therefore 6 binary variables are applied. A 1 value is placed in the binary variable for a specific actions label and 0 values is placed the other actions.
+\end{itemize}
+
+Tables 3.1 and 3.2 show the differences between a one-hot encoded datasets labels and non-one-hot encoding one.
+\hspace{5mm} 
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Class Label} & \textbf{Mapped Integers} \\ \hline
+Boxing               & 0                        \\ \hline
+Handclapping         & 1                        \\ \hline
+Handwaving           & 2                        \\ \hline
+Walking              & 3                        \\ \hline
+Jogging              & 4                        \\ \hline
+Running              & 5                        \\ \hline
+\end{tabular}
+\caption{How the class labels are mapped before one-hot encoding}
+\label{my-label}
+\end{table}
+
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{Class Label} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} \\ \hline
+Boxing               & 1          & 0          & 0          & 0          & 0          & 0          \\ \hline
+Handclapping         & 1          & 1          & 0          & 0          & 0          & 0          \\ \hline
+Handwaving           & 2          & 0          & 1          & 0          & 0          & 0          \\ \hline
+Walking              & 3          & 0          & 0          & 1          & 0          & 0          \\ \hline
+Jogging              & 4          & 0          & 0          & 0          & 1          & 0          \\ \hline
+Running              & 5          & 0          & 0          & 0          & 0          & 1          \\ \hline
+\end{tabular}
+\caption{How the class labels are mapped after one-hot encoding.}
+\label{my-label}
+\end{table}
+
+\subsection{Model Hyper-parameters}
+\hspace{5mm} Model variables are an essential part and the basis of building a ML model. Even tough, with the existing of all the computational power, choosing the right variables is by far one of the hardest problems occur when building a model, and finding them is done by fine tuning the model. The following sections give a comprehensive explanation about model hyper-parameters.\\
+
+Hyperparameters express higher-level properties of the model such as its complexity and how fast it should learn. They cannot be directly learned from the regular training process and cannot be estimated from data. Usually Hyper-parameters are initialized and fixed before the actual training process begin.\\
+
+Overall, Hyperparameters:
+\begin{itemize}
+\item Are considered higher level concepts about the model.
+\item Need to be predefined as they cannot be learned from the data.
+\item Can be decided by setting different values, choosing the values that test better and training models.
+\end{itemize}\\
+
+Some of the hyper-parameters example are:
+\begin{itemize}
+\item Learning rate – is the size of the gradient descent step and how much to update the weight in the optimization algorithm. To name few methods used to initialize the learning rate such as:
+\begin{itemize}
+\item Fixed learning rate.
+\item Gradually learning rate.
+\item Momentum based learning rate.
+\item Adaptive learning rates.  
+\end{itemize}
+\item \textbf{Number of epochs} – Is the number of times the whole dataset has to go through the NN. The number of epochs depend on the gap between the test error and the training error.
+\item \textbf{Batch size} – In convolutional networks mini-batch are usually preferable, rather than batch. The best values for mini-batch are between 16 and 128.
+\item \textbf{Activation function} – Is used to introduce non-linearity to the network. For convolutional networks, RELU function is usually used, but for alternative Sigmoid, Tanh activation functions can be used depending on the task. 
+\item \textbf{Number of hidden layers} – They play an important role in improving the test error results, and choosing them should be wisely. Having a small number of units may lead to underfitting, while having more units might be manageable with some regularization methods.
+\item \textbf{Weight initialization} – It recommended to initialize the weight with small random number to avoid “dead neuron”. However, a small weight value can lead to vanishing gradient or zero gradient. A uniform distribution weight works well in a NN model.
+\item \textbf{Dropout for regularization} – It is a regularization method used to avoid overfitting figures in the NN. Dropout drops neurons from each hidden layer according the desired probability for simplicity.
+\item \textbf{Grid search} – It is a method to perform a hyperparameters optimization. It then searches all parameter combinations for given values.
+\item \textbf{Randomized search} – It samples a predefined number of candidates from a parameter space with a specified distribution.  
+\end{itemize}
+\hspace{5mm} In this Thesis, multiple models will be built tested and compared. For that reason, hyperparameters are in the process of fine tuning, and they differ for every model.
+
+
+\subsection{Model Parameters}
+\hspace{5mm} Model parameters are the properties of the training data which the model would be learned by ML model such as weight and biases. However, in this implementation variety of parameters were configured for both convolutional layers and pooling layers.\\
+
+For Convolutional layers:
+\begin{itemize}
+\item \textbf{Filters}- The number of feature maps needed for the convolutional layer output.
+\item \textbf{Kernel size} - This is the size of the filter that will convolve on all the axes of the input data to form a feature map.
+\item \textbf{Strides} - The number of pixels needed to shift the convolutional window.
+\item \textbf{Padding} - It either “Valid” when the input gets cropped, or “Same” when the input is padded with zeros to main a similar dimension.
+\item \textbf{Activation }- As mentioned in the previous section, there are many activation functions to be used, however, RELU is proven to work best with DNN, due to its non-linearity, and its ability to eliminate the vanishing gradient problem).
+\end{itemize}\\
+
+For pooling layers:
+\begin{itemize}
+\item \textbf{Pool size} - window size (height and width).
+\item \textbf{Strides} - The number of pixels needed to shift the convolutional window.
+\item \textbf{Padding} - It either “Valid” when the input gets cropped, or “Same” when the input is padded with zeros to main a similar dimension.
+\end{itemize}
+
+\subsection{Sequential CNN model}
+\hspace{5mm} In this section, the layers construction of the NN model is covered. The model is using a combination of parameters and hyperparameters mentioned above. To build the model the utils.py script is used to extract the frame from each video sequence. The following section explain the model architecture.\\
+
+Keras API was chosen to build the neural network stack based on the sequential model. The sequential model is a linear stack of layers that form the statistical model. Creating a sequential model is possible by passing a list of layers instances to the constructor via  model.add() method like below:
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/se1}
+\decoRule
+\caption[How to import the sequential library from Keras API. The code used to build the sequential model.]{How to import the sequential library from Keras API. The code used to build the sequential model.}
+\label{fig:la}
+\end{figure}
+The first layer in a sequential model is receiving information about its input shape, because the model needs to know what input shape it should expect. This can be implemented by passing an input\_shape argument to the first layer. \\
+
+Numpy is a popular Python package for scientific computation was used for storage and processing the videos. Numpy offer a much faster processing than the in-built python lists with lots of extra functionalities. For that reason, Keras models are usually trained on NumPy arrays.
+
+\begin{figure}[ht]
+\centering
+\includegraphics{Figures/suma1}
+\decoRule
+\caption[The code written in python, showing the neural networks layers.]{The code written in python, showing the neural networks layers.}
+\label{fig:la}
+\end{figure}
+In this model a stack of 9 layers neural networks is built. The following is the network specification in each layer:
+
+\begin{itemize}
+    \item \textbf{Con3D layer} is spatial convolutional over volume. This layer produces a convolutional kernel which convolve with the input layer to create an output tensor. This layer takes argument as following:\\
+    \noindent\fcolorbox{black}{white}{%
+\minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// Con3D Layer } \\
+   \textcolor{blue}{keras.layers.Conv3D}(\textcolor{red}{filters},\textcolor{red}{kernel\_size},\textcolor{red}{strides}=(1,1,1),\textcolor{red}{padding}=valid,\\
+   \textcolor{red}{data\_format}=None,\textcolor{red}{dilation\_rate}=(1,1,1),\textcolor{red}{activation}=None,\\
+   \textcolor{red}{use\_bias}=True,\textcolor{red}{kernel\_initializer}='glorot\_uniform',\\
+   \textcolor{red}{bias\_initializer}='zeros',\textcolor{red}{kernel\_regularizer}=None,\\
+   \textcolor{red}{bias\_regularizer}=None,\textcolor{red}{activity\_regularizer}=None,\\
+   \textcolor{red}{kernel\_constraint}=None,\\
+   \textcolor{red}{bias\_constraint}=None)
+\endminipage}
+    \begin{itemize}
+        \item \textbf{Filters:} The number of output filters in the convolutional. It is an integer of the dimensionality of the output space. 
+        \item \textbf{Kernel size:} A list of 3 argument specifying the depth, width and height of the 3D convolutional window. A single integer will specify the same spatial dimensions of the filter.
+        \item \textbf{Strides:} A list of 3 argument specifying the strides of the convolutional along each spatial dimension. A single integer will specify the same spatial dimensions of the filter.
+        \item \textbf{Padding:} It can be either “same” or “valid” and both are case sensitive.
+        \item \textbf{Data format} A string of either “channel\_last” or “channel\_first” which specify the ordering of the dimension in the inputs. 
+        \item \textbf{Dilation rate:} A list of 3 integers specifying the dilation rate for convolutional. A single integer will specify the same spatial dimensions of the filter.
+        \item \textbf{Activation:} A mathematical function for the classifier it can be “RELU”, “Tanh”, “Leaky RELU”, “Sigmoid”, etc.
+        \item \textbf{Use bias:} It is a Boolean operation of whether the layer uses a bias vector.
+        \item \textbf{Kernel initializer:} It initializes the kernel weight matrix.
+        \item \textbf{Kernel regularizer:} A regularizer function applied to the kernel weight matrix.
+        \item \textbf{Activity regularizer:} A regularizer function applied to the bias vector.
+        \item \textbf{Kernel constraint:} A constraint function applied to the kernel matrix.
+        \item \textbf{Bias constraint:} A constraint function applied to the kernel matrix.
+    \end{itemize}
+    \newpage
+    In this model the first Con3D layer is set according to these specifications:
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/c31}
+    \decoRule
+    \caption[A piece of the code written to build the Conv3D layer.]{A piece of the code written to build the Conv3D layer.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    Note that if any of the previous specification are not specified in the layer, they will be considered None by default.
+    The following figure 3.18 is a mathematical demonstration on how the convolutional operation perform on an image. 
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/matrix1}
+    \decoRule
+    \caption[A piece of the code written to build the Conv3D layer.]{A piece of the code written to build the Conv3D layer.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    The matrix is then shifted by one row and one column at a time. After multiplying both of the matrices above, the result is a new 4x4 matrix with new pixel distribution. Below is an example of the calculation of one of the pixel cells.\hfill \\
+    \item \textbf{Max Pooling3D layer:} It is function to reduce the spatial size of the representation using the max operation to reduce the quantity of parameters and the computation time in the network in order to control overfitting.\\
+    Max Pooling 3D layer takes argument as following:\\
+    \noindent\fcolorbox{black}{white}{%
+    \minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// Max Pooling 3D Layer }\hfill \\
+   \textcolor{blue}{keras.layers.MaxPooling3D}(\textcolor{red}{pool\_size}=(2,2,2),\textcolor{red}{strides}=None,\\
+   \textcolor{red}{padding}='valid',\textcolor{red}{data\_format}=None)
+\endminipage}
+\begin{itemize}
+    \item \textbf{Pool size:} A list of 3 arguments that will have the dimension size of the 3D input in each dimension.
+    \item \textbf{Strides:} A list of 3 arguments of strides values, it also can be none.
+    \item \textbf{Padding:} It can be either “same” or “valid”.
+    \item \textbf{Data format:} A string of either “channel\_last” or “channel\_first” which specify the ordering of the dimension in the inputs.\hfill \\
+    It does have an input data shape if:
+    \begin{itemize}
+        \item \textbf{data\_format}= ‘channel\_last’, a 5D tensor with the following shape will be generated: (batch\_size, pooled\_dim1, pooled\_dim2, pooled\_dim3, channels).
+        \item \textbf{Data\_format}= ‘channel\_first’, a 5D tensor with the following shape will be generated: (batch\_size, channels, pooled\_dim1, pooled\_dim2, pooled\_dim3).\hfill \\
+        \end{itemize}
+    In this model the first MaxPooling3D layer is set according these specifications:\hfill \\
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/mp1}
+    \decoRule
+    \caption[A piece of the code written to build the MaxPooling layer.]{A piece of the code written to build the MaxPooling layer.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    Figure 3.20 is a mathematical demonstration of how the max pooling 3D operation perform on an image with a pooling filter of size 2x2 and stride of 2.\hfill \\
+    \newpage
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/mp}
+    \decoRule
+    \caption[A visualization of max pooling layer.]{A visualization of max pooling layer.}
+    \label{fig:la}
+    \end{figure}
+\end{itemize}\hfill \\
+\item \textbf{Global average pooling 3D:} it was proposed in [38] as a replacement of the traditional fully connected layer in CNN. it does have same functionality as the max pooling 3D layer. However, the global average pooling (GAP) are more extreme type of dimensionality reduction, where a tensor of h x w x d is reduced in size to have a dimension of 1 x 1 x d. It reduces each of the dimension h x w feature map to a single number by taking the average of all hw values.\hfill \\
+GAP 3D layer takes argument as following:\hfill \\
+\noindent\fcolorbox{black}{white}{%
+    \minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// GAP 3D Layer  }\hfill \\
+   \textcolor{blue}{keras.layers.GlobalAveragePooling3D}(\textcolor{red}{data\_format}=None)
+\endminipage}
+\begin{itemize}
+    \item \textbf{Data format:} It contains a single string which can be either “channels\_last” or “channels\_first”.  In this case, it is not specified with any argument, that’s mean that it will be “channels\_last by default”.\hfill \\
+\end{itemize}
+\newpage
+Figure 3.21 is a mathematical demonstration on how the global average pooling operation perform on an image with dimension of 6x6x3.\\
+ \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/gap1}
+    \decoRule
+    \caption[A visualization of the GAP layer reducing the dimension of an image with 6x6x3 image to 1x1x3 "55"]{A visualization of the GAP layer reducing the dimension of an image with 6x6x3 image to 1x1x3 [55].}
+    \label{fig:la}
+    \end{figure}\hfill \\
+In this model the GAP layer is set according these specifications:\\
+ \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/GAPcode}
+    \decoRule
+    \caption[A piece of the code written for GAP layer.]{A piece of the code written for GAP layer.}
+    \label{fig:la}
+    \end{figure}
+    \item \textbf{Dense layer or fully connected layer}: It is always the layer that comes after several convolutional and max pooling layers. The neurons in the dense layer have connections to all activations in the previous layer. These activations are regularly computed with a matrix multiplication prior to a bias offset.
+    \newpage
+    Dense layer takes argument as following:\hfill \\
+    \noindent\fcolorbox{black}{white}{%
+    \minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// Dense Layer  }\hfill \\
+   \textcolor{blue}{keras.layers.Dense}(\textcolor{red}{units},\textcolor{red}{activation}=None,\textcolor{red}{use\_bias}=True,\\
+   \textcolor{red}{kernel\_initializer}='glorot\_uniform',\textcolor{red}{bias\_initialize}='zeros',\\
+   \textcolor{red}{kernel\_regularizer}=None,\textcolor{red}{bias\_regularizer}=None,\\
+   \textcolor{red}{activity\_regularizer}=None,\textcolor{red}{kernel\_constraint}=None,\\
+   \textcolor{red}{bias\_constraint}=None)
+\endminipage}
+\begin{itemize}
+    \item \textbf{Units:} It is positive integer of the outer space dimensionality.
+    \item \textbf{Activation:} A mathematical function for the classifier it can be “RELU”, “Tanh”, “Leaky RELU”, “Sigmoid”, etc.
+    \item \textbf{Use bias:} It is a Boolean operation of whether the layer uses a bias vector.
+    \item \textbf{Kernel initializer:} It initializes the kernel weight matrix.
+    \item \textbf{Bias initializer:} It initializes the bias vector.
+    \item \textbf{Kernel regularizer:} A regularizer function applied to the kernel weight matrix.
+    \item \textbf{Bias regularizer:} A regularizer function applied to the bias vector.
+    \item \textbf{Activity regularizer:} A regularizer function applied to the layer.
+    \item \textbf{Kernel constraint:} It is the constraint function applied to the weight matrix of the kernel.
+    \item \textbf{Bias constraint:} It is the constraint function applied to the weight matrix of the bias vector.\hfill \\
+    In this model the dense layer is set according these specifications:\hfill \\
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/dl}
+    \decoRule
+    \caption[A piece of the code written to build the dense layer.]{A piece of the code written to build the dense layer.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    Above is showing a dense layer is applied to the hidden layer with RELU activation function, and another dense layer for the output layer using SoftMax activation function, which always used for predicting the label of the video.\\
+    Finally, after building the model layers and connecting all the layer with each other, a layer summary is being executed to show the output shape of each layer and their corresponding parameters. This was performed using model.summary(). At the end, the model is consisting of 793,558 total parameters.
+    \newpage
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/s}
+    \decoRule
+    \caption[The model summary.]{The model summary.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    The below diagram, shows the stack of layers of the proposed CNN model:
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/cnnmm}
+    \decoRule
+    \caption[Sequential model architecture.]{Sequential model architecture.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+In term of compiling the model, before the training start the learning process should be configured. This is done by model.compile(). It usually receives three arguments:
+\end{itemize}
+ \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/compill}
+    \decoRule
+    \caption[The command line responsible of compiling the model.]{The command line responsible of compiling the model.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    \begin{enumerate}
+        \item \textbf{Loss function:} The model will try to minimize it. It is usually the string identifier of an existing loss function such as “mean\_squared\_error”, “mse”, “binary\_crossentropy”, etc. However, in this case “categorical\_crossentropy” is used because the networks is dealing with multi-class classification problem.
+        \item \textbf{Optimizer:} It can be the string identifier of an existing optimizer such as “rmsprop”, “adagrad, “nadam”, etc. In this case, “adam” optimizer is used as it has the following criteria:
+        \begin{itemize}
+            \item learning rate (lr): float $>$ 0.
+            \item beta\_1 a float number between 0 and 1, but generally closer to 1.
+            \item beta\_2 a float number between 0 and 1, but generally closer to 1.
+            \item Epsilon a float number greater than 0, float $>$ 0, as a fuzz factor.
+            \item Decay as a float number greater than 0, float $>$ 0. It is added to the learning rate over each update.
+            \item Amsgrad as Boolean function.\\
+            The specifications of Adam optimizer algorithm were taken from the paper [37].
+        \end{itemize}
+        \item \textbf{List of metrics:} It is set to “accuracy” for any classification problem. It is also the string of an existing metric function.\\
+        This receive set of arguments as below:
+    \end{enumerate}
+    This receive set of arguments as below:\\
+    \noindent\fcolorbox{black}{white}{%
+    \minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// Model Checkpoint  }\hfill \\
+   \textcolor{blue}{keras.callbacks.ModelCheckpoint}(\textcolor{red}{monitor}='val\_loss',\textcolor{red}{verbose}=0,\\
+   \textcolor{red}{save\_best\_only}=False,\textcolor{red}{save\_weights\_only}=False,\textcolor{red}{mode}='auto',\\
+   \textcolor{red}{period}=1)
+\endminipage}
+ In this model the Model.fit() function has been created as below:
+\begin{itemize}
+    \item \textbf{File path:} It is the path name to where the file will be saved.
+    \item \textbf{Monitor:} The quantity to be monitored.
+    \item \textbf{Verbose:} it can mode 0 or mode 1.
+    \item \textbf{Save best only:} If it is True, then the latest model will not be overwritten the previous one.
+    \item \textbf{Mode:} takes one of these arguments “auto”, “min”, “max”.
+    \item \textbf{Save weight only:} this will make the best model to be saved.
+    \item \textbf{Period:} It is the number of epochs between checkpoints.
+\end{itemize}
+In this model the ModelCheckPoint() function has been created as below:
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/ef1}
+    \decoRule
+    \caption [A piece of code written for "ModelCheckPoint" function.]{A piece of code written for "ModelCheckPoint" function.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    Not all arguments are used. Unused arguments are set to None by default.\\
+
+At this stage the model is fully loaded and ready to be trained. model.fit() is used to run the model and start training. 
+model.fit() command line takes arguments as follows:\\
+\noindent\fcolorbox{black}{white}{%
+    \minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// Fit model  }\hfill \\
+   \textcolor{blue}{fit}(\textcolor{red}{x}=None,\textcolor{red}{y}=None,\textcolor{red}{batch\_size}=None,\textcolor{red}{epochs}=1,\textcolor{red}{verbose}=1,\textcolor{red}{callbacks}=None,\\
+   \textcolor{red}{validation\_split}=0.0,validation\_data=None,\textcolor{red}{shuffle}=True,\textcolor{red}{class\_weight}=None,\\
+   \textcolor{red}{sample\_weight}=None,\textcolor{red}{initial\_epoch}=0,\textcolor{red}{steps\_per\_epoch}=None,\\
+   \textcolor{red}{validation\_steps}=None)
+\endminipage}
+\end{itemize}
+\begin{itemize}
+    \item \textbf{X:} A list of NumPy arrays for the training data, because the model has multiple inputs.
+    \item \textbf{Y:} A list of NumPy arrays for the target data, because the model has multiple outputs.
+    \item \textbf{Batch size:} It is the number of samples in each gradient update.
+    \item \textbf{Epochs:} It is the iteration performed across the X and Y dataset.
+    \item \textbf{Verbose:} It is verbosity mode, which can be 0, 1 or 2.
+    \item \textbf{Callbacks:} Applying the call back function during training.
+    \item \textbf{Validation split:} It is float between 0 and 1.
+    \item \textbf{Validation data:} Evaluating the loss and other metrics after each epoch.
+    \item \textbf{Shuffle:} It can a Boolean function or a string.
+    \item \textbf{Class weight:} It is used for weighting the loss function.
+    \item \textbf{Initial epoch:} It can be either integer or None. It is number of steps before one epoch.
+    \item \textbf{Validation steps:} It is the total number of steps to validate before stopping.
+\end{itemize}
+ In this model the Model.fit() function has been created as follows:
+ \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/fit1}
+    \decoRule
+    \caption [A piece of code written for "Model.fit()" function.]{A piece of code written for "Model.fit()" function.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+ All the other no specified parameters will be None by default.
+ Over the 40 epochs, the model receives different values for the weight. However, the highest value must be saved for future uses. The weight is (.h5) format. Saving the weight is an essential part of building a ML model, as it helps saving the model architecture and load the layers with the same name.
+model.load\_weights() takes only one argument which is the name of the model architecture previously saved. 
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/loadweight}
+    \decoRule
+    \caption [A piece of the written code to load the model weight.]{A piece of the written code to load the model weight.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+ After saving the best weight and loading it to evaluate the model accuracy of the unseen data. The test set has been kept for evaluation. 
+In this implementation model.evaluate() is used to predict the model accuracy. During the evaluation the model will return the loss value and metrics values for the model in the test mode, and the computation are usually done in batches to speed to process.
+model.evaluate() command line takes arguments as follow:
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/ev}
+    \decoRule
+    \caption [A piece of the written code to perform the evaluation step.]{A piece of the written code to perform the evaluation step.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    
+Usually model.evaluate() take several arguments to perform this step. The common arguments are below:\\
+ \noindent\fcolorbox{black}{white}{%
+    \minipage[c]{\dimexpr1.0\linewidth}
+   \textcolor{dkgreen}{// Evaluate the model}\hfill \\
+   \textcolor{blue}{evaluate}(\textcolor{red}{x}=None,\textcolor{red}{y}=None,\textcolor{red}{batch\_size}=None,\textcolor{red}{verbose}=1,\textcolor{red}{sample\_weight}=None,\\
+   +
+   \textcolor{red}{steps}=None)
+\endminipage}
+ \begin{itemize}
+     \item \textbf{X:} It is the NumPy array of the input data if it is a multi-class model.
+     \item \textbf{Y:} It is the NumPy array of the target data if the model is multi-class.
+     \item \textbf{Batch size:} It is the number of samples per evaluation step. The default value is 32, but in this model, it is initialized to 16.
+     \item \textbf{Verbose:} It is the verbosity mode. 0 for silent and 1 for progress bar.
+     \item \textbf{Sample weight:} It is an optional NumPy array of weighs for the test data.
+     \item \textbf{Steps:} It either integer or None. 
+     
+ \end{itemize}
+\section{Summary}
+\hspace{5mm} In this chapter, a step by step explanation of proposed is given. First, we introduce our software tools and the popular dataset used for the thesis. Then, we discuss and explain the convolutional neural networks model was proposed to model the human action as set of visual features. In this method, a spatial temporal features were extracted at frames with significant regions of action. The model consists of 9 layers of ConvNet, MaxPooling, fully connected layers and a sigmoid function. The layers were built to suit the data extracted from each video and run on 40 epochs with 16 batch for normalization.
+\chapter{Preliminary Results and Discussion}
+This chapter presents the preliminary results of the proposed model. Firstly, the main evaluation metrics are presented (section 4.1). Then tables and graphs are presented to indicate the model reliability and accuracy (setion 4.2). We conclude this chapter by a summary of the results and the overall research (section 4.3).
+
+\section{Evaluation Metrics}
+\hspace{5mm} A Metrics model is a tool that provides a visual representation of the inter-relationships. To understand the performance and accuracy of the model, the performance should be evaluated using the trained data and apply them on the test data. In this model Accuracy and Confusion matrix is used for evaluation. Accuracy is used to evaluate the performance of the model on the test data, and the confusion matrix is used to compare the model with the benchmark model.
+\subsection{Confusion Matrix}
+\hspace{5mm} In Machine learning and specifically the problem of statistical classification, the confusion matrix is a particular table that allows visualization of the performance and an algorithm. The confusion matrix is used in this experiment to describe the performance of a classification model.\\
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Total}      & \textbf{Predicted Yes} & \textbf{Predicted No} \\ \hline
+\textbf{Actual Yes} & True Positives         & False Negatives       \\ \hline
+\textbf{Actual No}  & False Positives        & True Negatives        \\ \hline
+\end{tabular}
+\caption{Confusion Matrix table to evaluate the model performance.}
+\label{my-label}
+\end{table}\hfill \\
+
+For example, if a classification system has been trained to distinguish between these types of actions, a confusion matrix will summarize the results of testing the algorithm for further inspection. Below is the terminology and derivations from a confusion matrix:
+\begin{itemize}
+    \item \textbf{Condition Positives (P)}- The number of real positive cases in the data.
+    \item \textbf{Condition Negatives (N)}- The number of real negative cases in the data.
+    \item \textbf{True Positives (TP)}- When the model prediction was YES and the actual prediction was True.
+    \item \textbf{False Positives (FP)}- When the model prediction was YES and the actual prediction was False.
+    \item \textbf{False Negative (FN)}- When the model prediction was NO and the actual prediction was False.
+    \item \textbf{True Negatives (TN)}- When the model prediction was NO and the actual prediction was True.
+\end{itemize}
+\subsection{Accuracy}
+\hspace{5mm} Accuracy is one of the metrics for evaluating classification models. It is the fraction of predictions the model achieved. For binary classification accuracy has the following definition:\\
+
+\[\inline \large Accuracy = \frac{True Positives+True Negatives}{Total Data}\]\\
+
+But for multi-class classification, accuracy will be:
+\[\inline \large Accuracy = \frac{Correct Predictions}{Total Data}\]\\
+
+Particularly, accuracy is useful where each class has equal number of samples. Since KTH datasets have similar characteristics, the accuracy would be a suitable metric to evaluate the model.
+\section {Preliminary Results}
+\hspace{5mm} In this section, we discuss our preliminary results on the proposed CNN model after training and evaluation. The model was trained using the training data for 40 epochs. The model weights which gave the best accuracy and performance on the validation set were loaded. Then the model was tested on the test set. Training the computer on a machine with NVIDIA GEFORCE GTX GPU gave an accuracy of 40\% on the test data.
+The results below are the showing a snippet from the training from the 33th epochs to the 40th epoch. The training was done on the training and validation set, then for validation the model has been tested on the test set that the model didn’t see yet.\\
+
+Looking at figure 4.1, we can see that on the 33th  epoch the loss on the training set were lower than the one on the validation set with 0.7071 and 0.9164 respectively, while the accuracy on the training was higher than the one on the validation set with 67.67\% and 51.02\% respectively.
+After observation, we found out that the network accuracy reached its maximum on the 38th epochs with value of 64.29\% and it begin to decrease for the last two epochs. The same apply for the train set.\\
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/tp}
+    \decoRule
+    \caption [Showing the training step of the model from the 33th steps to the 40th.]{Showing the training step of the model from the 33th steps to the 40th.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+
+The observation on the learning curve in figure 4.2, clearly indicates some sign of over-fitting in the model during training. Over-fitting means that the model performed better on the training data, but not very well on the validation data. This case usually, happen when the model is too complicated for the data and begin memorizing the data without producing any learning. As shown over-fitting occurs somewhere between the 16th and the 19th epoch, and also in the last two epochs. The first over-fitting sign shows that the training loss was very high with up to 2. While the second over-fitting sign shows that the validation was higher than the training loss.
+\newpage
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/ml}
+    \decoRule
+    \caption [Training vs validation loss.]{Training vs validation loss.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    
+    To justify the model performance, we compared our proposed model results with the benchmark results using the confusion matrix. All confusion matrices are converted to the same format and they are normalized.\\
+    
+    Looking at the diagonal values of the confusion matrix. When the actual label was running, our proposed model predicted the label as running 64\% of the time, whereas the benchmark model predicted it 54.9\% of the time.\\
+    
+    For handclapping, the proposed model was able to achieve as high as 100\% accuracy, while the benchmark model achieved 59.7\%. That's mean, the proposed model did have any confusion with predicting handclapping actions. However, for boxing action, the benchmark model had better recognition rate than the proposed model with 97.9\% and 14\% respectively.\\
+    
+    The proposed model differentiate between jogging and running better than the benchmark model. The benchmark model also predicted 39\% of recognition rate for the jogging action, while the action is running, whereas the proposed model achieve 36\% predicting jogging action.\\
+    
+    Below results show the benchmark results (figure 4.3), and the proposed model results (figure 4.4), also show the comparison made between the two model in a seperate table (table 4.2), and at the end a bar plot visualization show the differences between the benchmark and the proposed model.\\
+    
+    
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/bench1}
+    \decoRule
+    \caption [The normalized confusion matrix for the proposed model.]{The normalized confusion matrix for the proposed model.}
+    \label{fig:la}
+    \end{figure}
+    \newpage
+    
+    \begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/bench}
+    \decoRule
+    \caption [The confusion matrix obtained from the benchmark model.]{The confusion matrix obtained from the benchmark model.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+    \begin{table}[ht]
+    \centering
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \textbf{Action} & \textbf{Benchmark Model} & \textbf{Proposed Model} \\ \hline
+    Boxing          & 97.9\%                     & 14\%                     \\ \hline
+    Handclapping    & 59.7\%                     & 100\%                    \\ \hline
+    Handwaving      & 73.6\%                     & 72\%                     \\ \hline
+    Walking         & 83.8\%                     & 94\%                     \\ \hline
+    Jogging         & 60.4\%                     & 69\%                     \\ \hline
+    Running         & 54.9\%                     & 64\%                     \\ \hline
+    \end{tabular}
+    \caption{Comparison between the proposed model and the benchmark model accuracy for each action.}
+    \label{my-label}
+    \end{table}\hfill \\
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/modelcomparison.png}
+    \decoRule
+    \caption [A visualization of each action accuracy for the proposed and benchmark model.]{A visualization of each action accuracy for the proposed and benchmark model.}
+    \label{fig:la}
+    \end{figure}\\
+    \newpage
+    According to table 4.2 and figure 4.5, it suggests that the proposed model gave better results at predicting the action labels correctly. This mean that the proposed model was able to predict actions that involves movements of hands more than actions that involved legs movements.
+   
+
+\section{Summary}
+\hspace{5mm} In this chapter, the proposed methodology was evaluated on the famous human activity dataset KTH, the preliminary results show competitive results. The data complexity were reduced by decreasing videos resolution and the number of frames extracted. Furthermore, this method models the connectivity between the human features in each frame. Given this, we suggest that our approach may be better suited at detecting certain actions than others such as walking and jumping.
+\chapter{Preliminary Conclusion}
+\hspace{5mm} In this chapter a summary of the overall methodology is presented with the research reflection (section 5.1), discussion on the future directions of the work is also made(section 5.2). Finally, a brief conclusion of the thesis (section 5.3).
+\section{Reflection}
+\hspace{5mm} The following steps were followed to perform all the calculation needed:\\
+\begin{itemize}
+    \item A problem domain was selected and a suitable data-set were searched.
+    \item The data-set were uncompressed from source and stored in a specific format.
+    \item A model was built and trained on the training data. 
+    \item The best performance on the validation set, was saved and loaded for testing.
+    \item The final model was evaluated using the test set and verified with the benchmark.
+    \item To compare the results, a benchmark model was chosen
+    \item All the problem related to the approach used were addressed and explained.
+    
+\end{itemize}
+\hspace{5mm} Particularly, the data preprocessing was the most challenging part. As the model should work on not only KTH data-set, but also on some other data-sets. As a result, a generalization helper function can be used to preprocess data within the same problem domain.\\
+
+Getting the preliminary results was also a challenging task due to the randomness in the layers in every run. Therefore, different structure and hyper parameters were precisely chosen to give the best results.
+
+\section{Future Work}
+\hspace{5mm} This section, presents various approaches to extend on the proposed model and suggests future directions that can be followed.\\
+In this thesis, The proposed approach has a huge scope of improvement. For that reason, we propose further investigations in the following areas to help improving the model performance:
+\begin{itemize}
+    \item \textbf{Data preprocessing:} In this research, the preprocessing step should separate frames that are empty with no human involved in performing any action and remove them before training step to reduce the data. The model performance is then significantly improved and is reducing the false positive rate.
+    \item \textbf{Learning Curve:} After observing the learning curve result in the model proposed, there was some sign of overfitting that appear specially in between the 20th and 25th epoch. This can be improved by applying tuning techniques and apply regularization on the model to prevent overfitting and improve the results.
+    
+\end{itemize}
+\hspace{5mm} The model in some parts failed to extract spatial features and convert them to 1-D vector without losing much information. To overcome this issue, a Transfer learning model should be used to extract these features. Even tough, at this current stage a pre-trained model for video recognition don’t exist yet. However, the following methodology can be used:
+\begin{itemize}
+    \item \textbf{ResNet:} Use this pre-trained model to encode all the video frames into 1-D vector.
+    \item \textbf{LSTM:} Use Long short-term memory as a sequence to sequence model to capture the temporal relationship between adjacent video frames.
+    \item \textbf{Dropout:} Use this special layer for regularization to avoid overfitting and gradient vanishing during training.
+    \item \textbf{More Convolutional layers:} Implementing more layers to the model, to extract more data and spatial features than will probably help in have better prediction on the test set.
+\end{itemize}
+
+\section{Thesis conclusion}
+\hspace{5mm} An evaluation of the model was showed with its preliminary results. The method of this Thesis can easily fallback, if the data was noisy and people's detection in each frame is missing, but still offered good action recognition accuracy.\\
+Finally, the biggest target is to build a web-application where people can perform some action, and the model would give a real-time prediction.\\
+\chapter{Time-line}
+\hspace{5mm} In this chapter, the time-line of the future work in presented from week 1 to week 14, which is part of thesis 2 of next semester.\\
+
+The research activity resourcing is including Western Sydney University Library, which help in getting all the needed books related to the topic and the context. On the other hand, budgeting was fully covered by the project fund form, but mainly using the laboratory computer for fast neural network training using the scem account.
+\begin{figure}[ht]
+    \centering
+    \includegraphics{Figures/fc}
+    \decoRule
+    \caption [Thesis time line, Gantt chart representation.]{Thesis time line, Gantt chart representation.}
+    \label{fig:la}
+    \end{figure}\hfill \\
+\chapter{References}
+\printbibliography[heading=bibintoc]
+
+[1] Steindler, A., 1955. Kinesiology of the human body under normal and pathological conditions. Springfield: Thomas.\\
+\newline
+[2] Aggarwal, J.K. and Ryoo, M.S., 2011. Human activity analysis: A review. ACM Computing Surveys (CSUR), 43(3), p.16.\\
+[3] Lee, H.K. and Kim, J.H., 1999. An HMM-based threshold model approach for gesture recognition. IEEE Transactions on pattern analysis and machine intelligence, 21(10), pp.961-973.\\
+\newline
+[4] Zhang, L., Jiang, M., Farid, D. and Hossain, M.A., 2013. Intelligent facial emotion recognition and semantic-based topic detection for a humanoid robot. Expert Systems with Applications, 40(13), pp.5160-5168.\\
+\newline
+[5] Xiang, T. and Gong, S., 2008. Video behavior profiling for anomaly detection. IEEE transactions on pattern analysis and machine intelligence, 30(5), pp.893-908.\\
+\newline
+[6] Pham, H.H., Khoudour, L., Crouzil, A., Zegers, P. and Velastin, S.A., 2018. Exploiting deep residual networks for human action recognition from skeletal data. Computer Vision and Image Understanding.\\
+\newline
+[7] Wang, H. and Schmid, C., 2013. Action recognition with improved trajectories. In Proceedings of the IEEE international conference on computer vision(pp. 3551-3558).\\
+\newline
+[8] David T. Kvale, 2010, Artificial Neural Network-Based Approaches for Modeling the Radiated Emissions from Printed Circuit Board Structures and Shields, Thesis, The University of Toledo, viewed 26 October 2018. Research Direct database.\\
+\newline
+[9] CS231n Convolutional Neural Networks for Visual Recognition n.d., viewed 31 Octber 2018, <http://cs231n.github.io/convolutional-networks/>\\
+\newline
+[10] Albelwi, S. and Mahmood, A., 2017. A framework for designing the architectures of deep convolutional neural networks. Entropy, 19(6), p.242.\\
+\newline
+[11] Suvro Banerjee, 2018, An Introduction to Recurrent Neural Networks, medium, viewed 28 October 2018 <https://medium.com/explore-artificial-intelligence/\\
+an-introduction-to-recurrent-neural-networks-72c97bf0912>\\
+\newline
+[12] Li, W., Wen, L., Chang, M.C., Lim, S.N. and Lyu, S., 2017, October. Adaptive RNN Tree for Large-Scale Human Action Recognition. In ICCV (pp. 1453-1461).\\
+\newline
+[13] Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A. and Bengio, Y., 2014. Generative adversarial nets. In Advances in neural information processing systems (pp. 2672-2680).\\
+\newline
+[14] Aakasha Pydi, 2018, Using a Generative Adversarial Network (GAN) to Create Novel Artistic Images, Aakashapydi, viewed 28 October 2018\\ 
+<http://www.aakashpydi.com/gan-varma-bapu/>\\
+\newline
+[15] Smolensky, P., 1986. Information processing in dynamical systems: Foundations of harmony theory (No. CU-CS-321-86). COLORADO UNIV AT BOULDER DEPT OF COMPUTER SCIENCE.\\
+\newline
+[16] Ma, L., Jia, X., Sun, Q., Schiele, B., Tuytelaars, T. and Van Gool, L., 2017. Pose guided person image generation. In Advances in Neural Information Processing Systems (pp. 406-416).\\
+\newline
+[17] Smolensky, P., 1986. Information processing in dynamical systems: Foundations of harmony theory (No. CU-CS-321-86). COLORADO UNIV AT BOULDER DEPT OF COMPUTER SCIENCE.\\
+\newline
+[18] Ma, L., Jia, X., Sun, Q., Schiele, B., Tuytelaars, T. and Van Gool, L., 2017. Pose guided person image generation. In Advances in Neural Information Processing Systems (pp. 406-416).\\
+\newline
+[19] Chu, C., Zhmoginov, A. and Sandler, M., 2017. CycleGAN: a Master of Steganography. arXiv preprint arXiv:1712.02950.\\
+\newline
+[20] Bansal, A., Ma, S., Ramanan, D. and Sheikh, Y., 2018. Recycle-GAN: Unsupervised Video Retargeting. arXiv preprint arXiv:1808.05174.\\
+\newline
+[21] Yoo, D., Kim, N., Park, S., Paek, A.S. and Kweon, I.S., 2016, October. Pixel-level domain transfer. In European Conference on Computer Vision (pp. 517-532). Springer, Cham.\\
+\newline
+[22] Ledig, C., Theis, L., Huszár, F., Caballero, J., Cunningham, A., Acosta, A., Aitken, A.P., Tejani, A., Totz, J., Wang, Z. and Shi, W., 2017, July. Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network. In CVPR (Vol. 2, No. 3, p. 4).\\
+\newline
+[23] Karras, T., Aila, T., Laine, S. and Lehtinen, J., 2017. Progressive growing of gans for improved quality, stability, and variation. arXiv preprint arXiv:1710.10196.\\
+\newline
+[24] Zhang, H., Xu, T., Li, H., Zhang, S., Wang, X., Huang, X. and Metaxas, D., 2017. Stackgan++: Realistic image synthesis with stacked generative adversarial networks. arXiv preprint arXiv:1710.10916.\\
+\newline
+[25] Kiasari, M.A., Moirangthem, D.S. and Lee, M., 2018. Human Action Generation with Generative Adversarial Networks. arXiv preprint arXiv:1805.10416.\\
+\newline
+[26] Tom M. Mitchell, 1997, Machine Learning, The University of Toledo, viewed 26 October 2018. McGraw-Hill Science/Engineering/Math\\
+\newline
+[27] David T. Kvale, 2010, Artificial Neural Network-Based Approaches for Modeling the Radiated Emissions from Printed Circuit Board Structures and Shields, Thesis, The University of Toledo, viewed 26 October 2018. Research Direct database.\\
+\newline
+[28] Ahad, M.A.R., Ogata, T., Tan, J.K., Kim, H.S. and Ishikawa, S., 2008, September. Motion recognition approach to solve overwriting in complex actions. In Automatic Face & Gesture Recognition, 2008. FG'08. 8th IEEE International Conference on (pp. 1-6). IEEE.\\
+\newline
+[29] Wang, Y., Huang, K. and Tan, T., 2007, June. Human activity recognition based on r transform. In Computer Vision and Pattern Recognition, 2007. CVPR 07. IEEE Conference on (pp. 1-8). IEEE.\\
+\newline
+[30] Ryoo, M.S. and Aggarwal, J.K., 2007, June. Hierarchical recognition of human activities interacting with objects. In 2007 IEEE Conference on Computer Vision and Pattern Recognition (pp. 1-8). IEEE.\\
+\newline
+[31] Flores-Vázquez, C. and Aranda, J., 2016, October. Human activity recognition from object interaction in domestic scenarios. In Ecuador Technical Chapters Meeting (ETCM), IEEE (pp. 1-6). IEEE.\\
+\newline
+[32] Chu, C., Zhmoginov, A. and Sandler, M., 2017. CycleGAN: a Master of Steganography. arXiv preprint arXiv:1712.02950.\\
+\newline
+[33] Bansal, A., Ma, S., Ramanan, D. and Sheikh, Y., 2018. Recycle-GAN: Unsupervised Video Retargeting. arXiv preprint arXiv:1808.05174.\\
+\newline
+[34] Yoo, D., Kim, N., Park, S., Paek, A.S. and Kweon, I.S., 2016, October. Pixel-level domain transfer. In European Conference on Computer Vision (pp. 517-532). Springer, Cham.\\
+\newline
+[35] Ledig, C., Theis, L., Huszár, F., Caballero, J., Cunningham, A., Acosta, A., Aitken, A.P., Tejani, A., Totz, J., Wang, Z. and Shi, W., 2017, July. Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network. In CVPR (Vol. 2, No. 3, p. 4).\\
+\newline
+[36] Karras, T., Aila, T., Laine, S. and Lehtinen, J., 2017. Progressive growing of gans for improved quality, stability, and variation. arXiv preprint arXiv:1710.10196.\\
+\newline
+[37] Naeini, M.M., Dutton, G., Rothley, K. and Mori, G., 2007, May. Action Recognition of Insects Using Spectral Clustering. In MVA (pp. 1-4).\\
+\newline
+[38] Darrell, T. and Pentland, A., 1993, June. Space-time gestures. In Computer Vision and Pattern Recognition, 1993. Proceedings CVPR 93., 1993 IEEE Computer Society Conference on (pp. 335-340). IEEE.\\
+\newline
+[39] Gavrila, D.M., 1999. The visual analysis of human movement: A survey. Computer vision and image understanding, 73(1), pp.82-98.\\
+\newline
+[40] Gao, Q.B. and Sun, S.L., 2012, July. Trajectory-based human activity recognition using Hidden Conditional Random Fields. In ICMLC (pp. 1091-1097).\\
+\newline
+[41]  Bobick, A.F., 1997. Movement, activity and action: the role of knowledge in the perception of motion. Philosophical Transactions of the Royal Society of London B: Biological Sciences, 352(1358), pp.1257-1265.\\
+\newline
+[42] Umakanthan, S., 2016. Human action recognition from video sequences (Doctoral dissertation, Queensland University of Technology).\\
+\newline
+[43] Park, S. and Aggarwal, J.K., 2004. A hierarchical Bayesian network for event recognition of human actions and interactions. Multimedia systems, 10(2), pp.164-179.\\
+\newline
+[44] Ivanov, Y.A. and Bobick, A.F., 2000. Recognition of visual activities and interactions by stochastic parsing. IEEE Transactions on Pattern Analysis and Machine Intelligence, 22(8), pp.852-872.\\
+\newline
+[45] Moore, D. and Essa, I., 2002, July. Recognizing multitasked activities from video using stochastic context-free grammar. In AAAI/IAAI (pp. 770-776).\\
+\newline
+[46] Li, W., Mahadevan, V. and Vasconcelos, N., 2014. Anomaly detection and localization in crowded scenes. IEEE transactions on pattern analysis and machine intelligence, 36(1), pp.18-32.\\
+\newline
+[47] Thida, M., Eng, H.L. and Remagnino, P., 2013. Laplacian eigenmap with temporal constraints for local abnormality detection in crowded scenes. IEEE Transactions on Cybernetics, 43(6), pp.2147-2156.\\
+\newline
+[48] Kratz, L. and Nishino, K., 2009. Anomaly detection in extremely crowded scenes using spatio-temporal motion pattern models.\\
+\newline
+[49] Brendel, W. and Todorovic, S., 2011, November. Learning spatiotemporal graphs of human activities. In Computer vision (ICCV), 2011 IEEE international conference on (pp. 778-785). IEEE.\\
+\newline
+[50] Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I. and Salakhutdinov, R., 2014. Dropout: a simple way to prevent neural networks from overfitting. The Journal of Machine Learning Research, 15(1), pp.1929-1958.\\
+\newline
+[51] Lin, M., Chen, Q. and Yan, S., 2013. Network in network. arXiv preprint arXiv:1312.4400.\\
+\newline
+[52] Li, W., Mahadevan, V. and Vasconcelos, N., 2014. Anomaly detection and localization in crowded scenes. IEEE transactions on pattern analysis and machine intelligence, 36(1), pp.18-32.\\
+\newline
+[53] Solutions for cost-effective multicloud n.d., viewed 1 October 2018,\\ <https://www.ubuntu.com/> \\
+\newline
+[54] Schuldt, C., Laptev, I. and Caputo, B., 2004. Recognizing human actions: a local SVM approach. In Pattern Recognition, 2004. ICPR 2004. Proceedings of the 17th International Conference on (Vol. 3, pp. 32-36). IEEE.\\
+\newline
+[55] Lin, M., Chen, Q. and Yan, S., 2013. Network in network. arXiv preprint arXiv:1312.4400.
+
+

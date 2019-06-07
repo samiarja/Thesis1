@@ -1,0 +1,248 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis 
+% LaTeX Template
+% Version 2.5 (27/8/17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+12pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+english, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+%parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{mathptmx} % Use the Palatino font by default
+
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+\addbibresource{example.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	inner=2.5cm, % Inner margin
+	outer=3.8cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Deep Convolutional Neural Networks for Spatial Temporal Human Actions Recognition} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Dr. Gu \textsc{Fang}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.westernsydney.edu.au/}{Western Sydney University}} % 
+\degree{Bachelor of Robotics and Mechatronics Engineering (Honours)} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Sami \textsc{Arja}} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{Engineering Thesis 1: Preliminary Investigation} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+
+\department{\href{https://www.westernsydney.edu.au/}{Western Sydney University}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\group{\href{https://www.westernsydney.edu.au/}{School of Computing, Engineering and Mathematics}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{\href{https://www.westernsydney.edu.au/}{School of Computing, Engineering and Mathematics}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+\vspace*{.06\textheight}
+{\scshape\LARGE \univname\par}\vspace{1.5cm} % University name
+\textsc{\Large Bachelor Thesis}\\[0.5cm] % Thesis type
+
+\HRule \\[0.4cm] % Horizontal line
+{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+\HRule \\[1.5cm] % Horizontal line
+ 
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+\href{https://github.com/samiarja}{\authorname} % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+\href{https://www.westernsydney.edu.au/staff_profiles/uws_profiles/associate_professor_gu_fang}{\supname} % Supervisor name - remove the \href bracket to remove the link  
+\end{flushright}
+\end{minipage}\\[3cm]
+ 
+\vfill
+
+\large \textit{Thesis 1: Preliminary Investigation\\  \degreename}\\[0.3cm] % University requirement text
+\textit{in}\\[0.4cm]
+\groupname\\\deptname\\[2cm] % Research group name and department name
+ 
+\vfill
+
+{\large \today}\\[4cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{declaration}
+\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+
+\noindent I, \authorname, declare that this thesis titled, \textcolor{red}{\enquote{\ttitle}} contains no material that has been accepted for the award of any other degree or diploma and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, expect when due reference is made in the text of this thesis.\\
+\noindent Signed:\\
+\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
+ 
+\noindent Date:\\
+\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+\end{declaration}
+
+\cleardoublepage
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+\addchaptertocentry{\abstractname}
+\hspace{5mm} Autonomous action recognition is important as it is enabling the creation of various useful applications such as surveillance system, personal assistants, patient monitoring, kinesiology[1] and vision based human computer interaction (HCI). The current systems are not able to achieve an accurate and continuous recognition due to large amount of data in human activity and the computational cost needed for such an application.\\
+
+In this thesis, we propose and validate a method to recognize human actions from a set of video sequences. The aim is to contribute to the recent advancement in this field and develop a deep neural network (DNN) that utilizes the appearance information for each frame to correctly label human actions within a short period of time. To achieve this, research questions are formed to study a live recognition system via directly detecting action instances from untrimmed videos, and to address the issue of adding anomalies to reduce the system confusion in a noisy environment, and to study the feature fusion for multi camera frames to ensure providing a consistent situational context. The method systematically derives spatial and temporal vectors from a sequence of videos and feed these vectors to a convolutional neural network (CNN) model with 9 layers that learn all the possible features from each frame.\\
+
+Preliminary results show that, the proposed model has the capabilities of classifying up to 6 actions categories and able to achieve as high as 69.3\% of recognition rate using the challenging and well studied KTH dataset.
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+\hspace{5mm} First of all, I would like to express my sincere gratitude to my supervisor Prof. Gu Fang for his excellent supervision during this semester. The door to Prof. Fang's office was always open whenever I had a question or concern about my research. He consistently steered me in the right direction whenever he thought I needed it.\\
+
+Finally, I must express my very profound gratitude to my parent for believing in me and providing me with unfailing support and continuous encouragement throughout my years of study. This accomplishment would have been impossible without them\ldots
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+\textbf{AAL} & \textbf{A}mbient \textbf{A}ssisted \textbf{L}iving\\
+\textbf{CFG} & \textbf{C}ontext \textbf{F}ee \textbf{G}rammars\\
+\textbf{CNN } & \textbf{C}onvolutional \textbf{N}eural \textbf{N}etworks\\
+\textbf{DBN} & \textbf{D}ynamic \textbf{B}ayesian \textbf{N}etworks\\
+\textbf{DTR} & \textbf{D}ynamic \textbf{T}ime \textbf{W}arping\\
+\textbf{GAN} & \textbf{G}enerative \textbf{A}dversarial \textbf{N}etworks\\
+\textbf{GAP} & \textbf{G}lobal \textbf{A}verage \textbf{Pooling}\\
+\textbf{GMM} & \textbf{G}aussian \textbf{M}ixture \textbf{M}odel\\
+\textbf{HAR} & \textbf{H}uman \textbf{A}ctions \textbf{R}ecognition\\
+\textbf{HCI} & \textbf{H}uman \textbf{C}omputer \textbf{I}nteraction\\
+\textbf{HCRF} & \textbf{H}idden \textbf{C}onditional \textbf{R}andom \textbf{F}ields\\
+\textbf{HIR} & \textbf{H}uman \textbf{I}nteraction \textbf{R}ecognition\\
+\textbf{HMM} & \textbf{H}idden \textbf{M}arkov \textbf{M}odel\\
+\textbf{HRI} & \textbf{H}uman \textbf{R}obot \textbf{I}nteraction\\
+\textbf{IOT} & \textbf{I}nternet \textbf{O}f \textbf{T}hings\\
+\textbf{KNN} & \textbf{K} \textbf{N}earest \textbf{N}eighbors\\
+\textbf{LSTM} & \textbf{L}ong \textbf{S}hort \textbf{T}erm \textbf{M}emory\\
+\textbf{MAP} & \textbf{M}ax \textbf{P}osterior \textbf{P}robability\\
+\textbf{MEI} & \textbf{M}otion \textbf{E}nergy \textbf{I}mage\\
+\textbf{MHI} & \textbf{M}otion \textbf{H}istory \textbf{I}mage\\
+\textbf{ML} & \textbf{M}achine \textbf{L}earning\\
+\textbf{MLE} & \textbf{M}aximum \textbf{L}ikelihood \textbf{E}stimation\\
+\textbf{OOP} & \textbf{O}bject \textbf{O}riented \textbf{P}rogramming\\
+\textbf{PCA} & \textbf{P}rincipal \textbf{C}omponents \textbf{A}nalysis\\
+\textbf{RAS} & \textbf{R}obotics \textbf{A}utomation \textbf{S}ystem\\
+\textbf{RBM} & \textbf{R}estricted \textbf{B}oltzmann \textbf{M}achine\\
+\textbf{RELU} & \textbf{R}ectified \textbf{L}inear \textbf{U}nit\\
+\textbf{RNN} & \textbf{R}ecurrent \textbf{N}eural \textbf{N}etworks\\
+\textbf{ROI} & \textbf{R}egion \textbf{O}f \textbf{I}nterest\\
+\textbf{SCFG} & \textbf{S}tochastic \textbf{C}ontext \textbf{F}ee \textbf{G}rammars\\
+\textbf{STIP} & \textbf{S}patial \textbf{T}emporal \textbf{I}nterest \textbf{P}oint\\
+\textbf{SVD} & \textbf{S}upport \textbf{V}ector \textbf{M}achine\\
+\textbf{SVM} & \textbf{S}ingular \textbf{V}alue \textbf{D}ecomposition\\
+\textbf{TF} & \textbf{T}ensor \textbf{F}low\\
+\textbf{VAE} & \textbf{V}ariational \textbf{A}uto \textbf{E}ncoders
+
+
+\end{abbreviations}
+-------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+\include{Chapters/Chapter1}
+
+
+
+\end{document}  
